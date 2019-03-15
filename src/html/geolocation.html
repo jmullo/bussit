@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        
+        <title>Geolocation</title>
+    </head>
+    <body>
+        <script type="text/javascript">
+            if (navigator.geolocation) {
+                var request = function() {
+                    var options = {
+                        enableHighAccuracy: true,
+                        timeout: 60000,
+                        maximumAge: 60000
+                    };
+
+                    var success = function(position) {
+                        var latLng = [
+                            position.coords.latitude,
+                            position.coords.longitude
+                        ];
+
+                        postMessage(latLng, window.location.origin);
+                    };
+
+                    navigator.geolocation.watchPosition(success, null, options)
+                };
+
+                addEventListener('load', request);
+            }
+        </script>
+    </body>
+</html>

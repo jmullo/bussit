@@ -31,7 +31,15 @@ export const getBuses = async () => {
                     }
                 })
                 .then((response) => response.data.body.reduce((result, { monitoredVehicleJourney }) => {
-                    result[monitoredVehicleJourney.vehicleRef] = monitoredVehicleJourney;
+                    result[monitoredVehicleJourney.vehicleRef] = {
+                        ..._.pick(monitoredVehicleJourney, ['delay', 'lineRef']),
+                        bearing: Number(monitoredVehicleJourney.bearing),
+                        speed: Number(monitoredVehicleJourney.speed),
+                        latLng: [
+                            Number(monitoredVehicleJourney.vehicleLocation.latitude),
+                            Number(monitoredVehicleJourney.vehicleLocation.longitude),
+                        ]
+                    };
                     
                     return result;
                 }, {}));
