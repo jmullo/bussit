@@ -23,7 +23,13 @@ export const MAP_OPTIONS = {
 };
 
 export const TILE_LAYER_URL_TEMPLATE = 'http://{s}.base.maps.cit.api.here.com/maptile/2.1/maptile/newest/normal.day.grey/{z}/{x}/{y}/256/png8?app_id=PSK0FXmSMedrhq0pnjeh&app_code=NrsNjPndpr8j9Ab-WrN7hg';
-export const TILE_LAYER_OPTIONS = { subdomains: '1234' };
+
+export const TILE_LAYER_OPTIONS = {
+    subdomains: '1234',
+    minZoom: MAP_OPTIONS.minZoom,
+    maxZoom: MAP_OPTIONS.maxZoom,
+    keepBuffer: 4
+};
 
 export const STOP_OPTIONS = {
     radius: 4,
@@ -33,3 +39,10 @@ export const STOP_OPTIONS = {
     color: 'rgba(255, 255, 255)',
     fillColor: 'rgba(0, 112, 186)'
 };
+
+export const UPDATE_INTERVAL_MS = 500;
+export const REMOVE_INTERVAL_MS = 10000;
+
+export const BUS_EARLY_THRESHOLD = -60;
+export const BUS_LATE_THRESHOLD = 120;
+export const BUS_DEAD_THRESHOLD = 120;

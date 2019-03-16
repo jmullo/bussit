@@ -3,6 +3,8 @@ import axios from 'axios';
 
 import { API_URL, EXCLUDED_BUS_FIELDS } from 'constants/constants';
 
+let requestNumber = 0;
+
 export const getStops = async () => {
     return axios.get(`${API_URL}/stop-points`)
                 .then((response) => response.data.body.reduce((result, value) => {
@@ -27,6 +29,7 @@ export const getLines = async () => {
 export const getBuses = async () => {
     return axios.get(`${API_URL}/vehicle-activity`, {
                     params: {
+                        'directionRef': (requestNumber++ % 2) + 1,
                         'exclude-fields': EXCLUDED_BUS_FIELDS
                     }
                 })

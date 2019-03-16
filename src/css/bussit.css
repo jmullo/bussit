@@ -22,6 +22,10 @@ html, body {
     user-select: none;
 }
 
+.leaflet-marker-icon {
+    transition: transform .5s linear;
+}
+
 .bus {
     color: rgba(255,255,255, 1);
 }
@@ -38,6 +42,14 @@ html, body {
 
 .moving .arrow {
     border-radius: 3px 14px 14px 14px;
+}
+
+.early .arrow {
+    background-color: rgba(255, 127, 0, 0.9);
+}
+
+.late .arrow {
+    background-color: rgba(190, 0, 0, 0.9);
 }
 
 .shadow {
