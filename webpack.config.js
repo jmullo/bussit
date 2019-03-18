@@ -2,7 +2,8 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-    devtool: 'cheap-module-eval-source-map',
+    //devtool: 'cheap-module-eval-source-map',
+    devtool: false,
     devServer: {
         clientLogLevel: 'info',
         contentBase: './dist',
@@ -30,13 +31,24 @@ module.exports = {
         entrypoints: false,
         version: false
     },
+    optimization: {
+		splitChunks: {
+			cacheGroups: {
+				deps: {
+                    test: /[\\/]node_modules[\\/]/,
+					name: 'deps',
+					chunks: 'all'
+				}
+			}
+		}
+    },
     performance: {
         hints: false
     },
     entry: './index.js',
     output: {
         path: __dirname + '/dist',
-        filename: 'bussit.js'
+        filename: '[name].bussit.js'
     },
     resolve: {
         modules: [

@@ -1,3 +1,4 @@
+import { forOwn } from 'lodash';
 import L from 'leaflet';
 
 import { STOP_OPTIONS } from 'constants/constants';
@@ -7,7 +8,7 @@ const maxBounds = L.latLngBounds();
 
 export const createStopLayer = (map, stops) => {
     
-    _.forOwn(stops, ({ latLng }) => {
+    forOwn(stops, ({ latLng }) => {
         maxBounds.extend(latLng);
         L.circle(latLng, STOP_OPTIONS).addTo(layerGroup);
     });

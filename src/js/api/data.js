@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import { pick } from 'lodash';
 import axios from 'axios';
 
 import { API_URL, EXCLUDED_BUS_FIELDS } from 'constants/constants';
@@ -20,7 +20,7 @@ export const getStops = async () => {
 export const getLines = async () => {
     return axios.get(`${API_URL}/lines`)
                 .then((response) => response.data.body.reduce((result, value) => {
-                    result[value.name] = _.pick(value, ['name', 'description']);
+                    result[value.name] = pick(value, ['name', 'description']);
                     
                     return result;
                 }, {}));
@@ -35,7 +35,7 @@ export const getBuses = async () => {
                 })
                 .then((response) => response.data.body.reduce((result, { monitoredVehicleJourney }) => {
                     result[monitoredVehicleJourney.vehicleRef] = {
-                        ..._.pick(monitoredVehicleJourney, ['delay', 'lineRef']),
+                        ...pick(monitoredVehicleJourney, ['delay', 'lineRef']),
                         bearing: Number(monitoredVehicleJourney.bearing),
                         speed: Number(monitoredVehicleJourney.speed),
                         latLng: [

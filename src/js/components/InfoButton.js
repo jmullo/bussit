@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import Fab from '@material-ui/core/Fab';
@@ -46,7 +45,9 @@ export default class InfoButton extends React.Component {
                                         </Link>
                                     </Typography>
                                 </Grid>
-                                <Grid item />
+                                <Grid item>
+                                    &nbsp;
+                                </Grid>
                                 <Grid item>
                                     <Link className="link" href="https://github.com/jmullo/bussit" color="secondary" variant="body1">
                                         <Octicon className="icon" icon={MarkGithub} size='medium' verticalAlign='middle'/>

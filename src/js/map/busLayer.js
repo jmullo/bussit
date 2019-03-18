@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import { forOwn, startsWith } from 'lodash';
 import L from 'leaflet';
 import Duration from 'luxon/src/duration';
 
@@ -15,7 +15,7 @@ let busMarkers = {};
 export const createBusLayer = () => (layerGroup);
 
 export const updateBuses = (buses) => {
-    _.forOwn(buses, (bus, vehicleRef) => {
+    forOwn(buses, (bus, vehicleRef) => {
         if (busMarkers[vehicleRef]) {
             whenNotZooming(() => updateMarker(busMarkers[vehicleRef], bus));
         } else {
@@ -28,7 +28,7 @@ export const removeDeadBuses = () => {
     L.Util.requestAnimFrame(() => {
         const timestamp = new Date().getTime();
 
-        _.forOwn(busMarkers, (marker, vehicleRef) => {
+        forOwn(busMarkers, (marker, vehicleRef) => {
             const deadSeconds = (timestamp - marker.timestamp) / 1000;
     
             if (deadSeconds > BUS_DEAD_THRESHOLD) {
@@ -57,7 +57,7 @@ const createMarker = (bus) => {
 const createIcon = ({ lineRef, bearing, speed, delay }) => {
     const classNames = (speed > 0) ? ['moving','bus'] : ['bus'];
 
-    const negative = _.startsWith(delay, '-');
+    const negative = startsWith(delay, '-');
     const delaySeconds = negative ? Duration.fromISO(delay.slice(1)).negate().as('seconds')
                                   : Duration.fromISO(delay).as('seconds');
 

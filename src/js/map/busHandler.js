@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import { defer } from 'lodash';
 
 import { UPDATE_INTERVAL_MS, REMOVE_INTERVAL_MS } from 'constants/constants';
 
@@ -14,7 +14,7 @@ const update = () => {
     setTimeout(async () => {
         const buses = await getBuses();
 
-        _.defer(() => updateBuses(buses));
+        defer(() => updateBuses(buses));
         update();
     }, UPDATE_INTERVAL_MS);
 };

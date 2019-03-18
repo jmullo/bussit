@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import L from 'leaflet';
 
 import {
@@ -20,7 +19,7 @@ let busLayer;
 export const initMap = async (element) => {
 
     map = L.map(element, MAP_OPTIONS)
-           .on('contextmenu', _.noop);
+           .on('contextmenu', () => {});
 
     addViewHandler(map);
     addZoomHandler(map);

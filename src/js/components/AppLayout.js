@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import React from 'react';
 
 import { initMap } from 'map/map';

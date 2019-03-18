@@ -1,3 +1,4 @@
+import { defer } from 'lodash';
 import L from 'leaflet';
 
 let zooming = false;
@@ -9,7 +10,7 @@ export const addZoomHandler = (map) => {
 
 export const whenNotZooming = (method) => {
     if (zooming) {
-        _.defer(() => whenNotZooming(method));
+        defer(() => whenNotZooming(method));
     } else {
         L.Util.requestAnimFrame(method);
     }

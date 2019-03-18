@@ -3,6 +3,7 @@
         [
             "@babel/preset-env",
             {
+                "modules": false,
                 "useBuiltIns": "entry"
             }
         ],
@@ -15,6 +16,7 @@
                 "loose": true
             }
         ],
-        "@babel/plugin-transform-runtime"
+        "@babel/plugin-transform-runtime",
+        "lodash"
     ]
 }
