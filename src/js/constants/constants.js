@@ -22,7 +22,7 @@ export const MAP_OPTIONS = {
     maxZoom: 18
 };
 
-export const TILE_LAYER_URL_TEMPLATE = 'http://{s}.base.maps.cit.api.here.com/maptile/2.1/maptile/newest/normal.day.grey/{z}/{x}/{y}/256/png8?app_id=PSK0FXmSMedrhq0pnjeh&app_code=NrsNjPndpr8j9Ab-WrN7hg';
+export const TILE_LAYER_URL_TEMPLATE = 'http://{s}.traffic.maps.cit.api.here.com/maptile/2.1/traffictile/newest/normal.day.grey/{z}/{x}/{y}/256/png8?min_traffic_congestion=heavy&app_id=PSK0FXmSMedrhq0pnjeh&app_code=NrsNjPndpr8j9Ab-WrN7hg';
 
 export const TILE_LAYER_OPTIONS = {
     subdomains: '1234',

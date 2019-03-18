@@ -55,7 +55,6 @@ const createMarker = (bus) => {
 };
 
 const createIcon = ({ lineRef, bearing, speed, delay }) => {
-
     const classNames = (speed > 0) ? ['moving','bus'] : ['bus'];
 
     const negative = _.startsWith(delay, '-');

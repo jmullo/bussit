@@ -2,6 +2,7 @@ import _ from 'lodash';
 import React from 'react';
 
 import { initMap } from 'map/map';
+import InfoButton from 'components/InfoButton';
 
 export default class AppLayout extends React.Component {
 
@@ -13,7 +14,10 @@ export default class AppLayout extends React.Component {
 
     render() {
         return (
-            <div className="map" ref={this.mapDiv} />
+            <React.Fragment>
+                <div className="map" ref={this.mapDiv} />
+                <InfoButton />
+            </React.Fragment>
         );
     }
 }
