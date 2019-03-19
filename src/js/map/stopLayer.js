@@ -1,16 +1,16 @@
 import { forOwn } from 'lodash';
-import L from 'leaflet';
+import { LayerGroup, LatLngBounds, Circle } from 'leaflet/dist/leaflet-src.esm';
 
 import { STOP_OPTIONS } from 'constants/constants';
 
-const layerGroup = L.layerGroup();
-const maxBounds = L.latLngBounds();
+const layerGroup = new LayerGroup();
+const maxBounds = new LatLngBounds();
 
 export const createStopLayer = (map, stops) => {
-    
+
     forOwn(stops, ({ latLng }) => {
         maxBounds.extend(latLng);
-        L.circle(latLng, STOP_OPTIONS).addTo(layerGroup);
+        new Circle(latLng, STOP_OPTIONS).addTo(layerGroup);
     });
 
     layerGroup.on('add', () => map.setMaxBounds(maxBounds.pad(0.1)));

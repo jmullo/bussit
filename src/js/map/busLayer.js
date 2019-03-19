@@ -1,5 +1,5 @@
 import { forOwn, startsWith } from 'lodash';
-import L from 'leaflet';
+import { LayerGroup, Marker, DivIcon, Util } from 'leaflet/dist/leaflet-src.esm';
 import Duration from 'luxon/src/duration';
 
 import {
@@ -8,8 +8,7 @@ import {
 
 import { whenNotZooming } from 'map/zoomHandler';
 
-const layerGroup = L.layerGroup();
-
+const layerGroup = new LayerGroup();
 let busMarkers = {};
 
 export const createBusLayer = () => (layerGroup);
@@ -25,7 +24,7 @@ export const updateBuses = (buses) => {
 };
 
 export const removeDeadBuses = () => {
-    L.Util.requestAnimFrame(() => {
+    Util.requestAnimFrame(() => {
         const timestamp = new Date().getTime();
 
         forOwn(busMarkers, (marker, vehicleRef) => {
@@ -47,7 +46,7 @@ const updateMarker = (marker, bus) => {
 };
 
 const createMarker = (bus) => {
-    const marker = L.marker(bus.latLng, { icon: createIcon(bus) }).addTo(layerGroup);
+    const marker = new Marker(bus.latLng, { icon: createIcon(bus) }).addTo(layerGroup);
             
     marker.timestamp = new Date().getTime();
 
@@ -71,7 +70,7 @@ const createIcon = ({ lineRef, bearing, speed, delay }) => {
                  `<div class="arrow" style="transform: rotate(${bearing + 45}deg)"></div>` +
                  `<div class="number">${lineRef}</div>`;
 
-    return L.divIcon({
+    return new DivIcon({
         className: classNames.join(' '),
         iconSize: [28, 28],
         html: html

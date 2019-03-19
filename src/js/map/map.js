@@ -1,4 +1,4 @@
-import L from 'leaflet';
+import { Map, TileLayer } from 'leaflet/dist/leaflet-src.esm';
 
 import {
     MAP_OPTIONS, TILE_LAYER_URL_TEMPLATE, TILE_LAYER_OPTIONS
@@ -12,24 +12,18 @@ import { createStopLayer } from 'map/stopLayer';
 import { createBusLayer } from 'map/busLayer';
 
 let map;
-let tileLayer;
-let stopLayer;
-let busLayer;
 
 export const initMap = async (element) => {
-
-    map = L.map(element, MAP_OPTIONS)
-           .on('contextmenu', () => {});
+    map = new Map(element, MAP_OPTIONS).on('contextmenu', () => {});
 
     addViewHandler(map);
     addZoomHandler(map);
 
-    tileLayer = L.tileLayer(TILE_LAYER_URL_TEMPLATE, TILE_LAYER_OPTIONS).addTo(map);
+    new TileLayer(TILE_LAYER_URL_TEMPLATE, TILE_LAYER_OPTIONS).addTo(map);
 
     const stops = await getStops();
 
-    stopLayer = createStopLayer(map, stops).addTo(map);
-    busLayer = createBusLayer().addTo(map);
-
+    createStopLayer(map, stops).addTo(map);
+    createBusLayer().addTo(map);
     addBusHandler(map);
 };

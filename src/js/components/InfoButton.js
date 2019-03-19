@@ -5,7 +5,7 @@ import Dialog from '@material-ui/core/Dialog';
 import Link from '@material-ui/core/Link';
 import Typography from '@material-ui/core/Typography';
 import InfoOutlined from '@material-ui/icons/InfoOutlined';
-import Octicon, { MarkGithub, Mail } from '@githubprimer/octicons-react';
+import Octicon, { MarkGithub, Mail } from '@githubprimer/octicons-react/dist/index.esm';
 
 export default class InfoButton extends React.Component {
 

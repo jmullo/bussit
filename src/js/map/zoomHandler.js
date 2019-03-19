@@ -1,5 +1,5 @@
 import { defer } from 'lodash';
-import L from 'leaflet';
+import { Util } from 'leaflet/dist/leaflet-src.esm';
 
 let zooming = false;
 
@@ -12,6 +12,6 @@ export const whenNotZooming = (method) => {
     if (zooming) {
         defer(() => whenNotZooming(method));
     } else {
-        L.Util.requestAnimFrame(method);
+        Util.requestAnimFrame(method);
     }
 };
