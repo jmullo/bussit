@@ -1,15 +1,14 @@
 {
   "name": "bussit",
   "version": "0.1.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Tampereen bussit",
+  "module": "index.js",
   "scripts": {
     "start": "webpack-dev-server --hot --mode development --config ./webpack.config.js",
     "build": "webpack --mode production --config ./webpack.config.js"
   },
   "sideEffects": [
-    "./src/**/*.js",
-    "*.css"
+    "./src/**/*.css"
   ],
   "repository": {
     "type": "git",

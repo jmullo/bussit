@@ -8,4 +8,4 @@ import 'leaflet/dist/leaflet.css';
 import 'bussit.css';
 import 'favicon.ico';
 
-ReactDOM.render(<App />, document.getElementById('main'));
+export default ReactDOM.render(<App />, document.getElementById('main'));

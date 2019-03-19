@@ -51,6 +51,7 @@ module.exports = {
         filename: '[name].bussit.js'
     },
     resolve: {
+        extensions: ['.js'],
         modules: [
             './src/js',
             './src/css',
