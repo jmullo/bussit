@@ -39,10 +39,12 @@ export const removeDeadBuses = () => {
 };
 
 const updateMarker = (marker, bus) => {
-    marker.setLatLng(bus.latLng)
-          .setIcon(createIcon(bus));
+    if (marker) {
+        marker.setLatLng(bus.latLng)
+              .setIcon(createIcon(bus));
 
-    marker.timestamp = new Date().getTime();
+        marker.timestamp = new Date().getTime();
+    }
 };
 
 const createMarker = (bus) => {
