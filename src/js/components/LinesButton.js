@@ -7,7 +7,8 @@ import Typography from '@material-ui/core/Typography';
 import InfoOutlined from '@material-ui/icons/InfoOutlined';
 import Octicon, { MarkGithub, Mail } from '@githubprimer/octicons-react/dist/index.esm';
 
-import { DataContext } from 'components/DataContext';
+import { dataContext, DataContext } from 'components/DataContext';
+import { emit } from 'utils/events';
 
 class LinesButton extends React.Component {
 
@@ -20,19 +21,20 @@ class LinesButton extends React.Component {
     };
 
     handleClick = value => {
+        dataContext.selectedLines = ["3"];
         this.setState({ dialogOpen: true });
     };
 
     render() {
 
         return (
-            <div className="infoButton">
+            <div className="button">
                 {
                     this.state.dialogOpen &&
                     <Dialog open={this.state.dialogOpen} onClose={this.handleClose}>
                         <div className="infoDialog">
                             {
-                                Line selector
+                                
                             }
                         </div>
                     </Dialog>

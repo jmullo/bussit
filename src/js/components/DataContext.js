@@ -1,7 +1,8 @@
 import React from 'react';
 
-export const DataContext = React.createContext();
+import { emit } from 'utils/events';
 
+export const DataContext = React.createContext();
 export let dataContext;
 
 export default class DataContextProvider extends React.Component {
@@ -15,7 +16,8 @@ export default class DataContextProvider extends React.Component {
             set(object, key, value) {
                 object[key] = value;
     
-                component.setState(object);
+                emit(key, value);
+                component.forceUpdate();
     
                 return true;
             }

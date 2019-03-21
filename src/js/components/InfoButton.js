@@ -23,7 +23,7 @@ export default class InfoButton extends React.Component {
 
     render() {
         return (
-            <div className="infoButton">
+            <div className="button">
                 {
                     this.state.dialogOpen &&
                     <Dialog open={this.state.dialogOpen} onClose={this.handleClose}>

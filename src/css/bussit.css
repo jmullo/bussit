@@ -22,12 +22,16 @@ html, body {
     user-select: none;
 }
 
-.infoButton {
+.buttons {
     position: absolute;
     bottom: 0;
     right: 0;
     margin: 10px;
     z-index: 1000;
+}
+
+.button {
+    margin-top: 10px;
 }
 
 .infoDialog {

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { initMap } from 'map/map';
-import InfoButton from 'components/InfoButton';
+import Buttons from 'components/Buttons';
 
 export default class AppLayout extends React.Component {
 
@@ -15,7 +15,7 @@ export default class AppLayout extends React.Component {
         return (
             <React.Fragment>
                 <div className="map" ref={this.mapDiv} />
-                <InfoButton />
+                <Buttons />
             </React.Fragment>
         );
     }

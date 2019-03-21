@@ -4,26 +4,29 @@ import { UPDATE_INTERVAL_MS, REMOVE_INTERVAL_MS } from 'constants/constants';
 
 import { getBuses } from 'api/data';
 import { dataContext } from 'components/DataContext';
-import { updateBuses, removeDeadBuses } from 'map/busLayer';
+import { on } from 'utils/events';
+import { updateBuses, removeBuses, removeDeadBuses } from 'map/busLayer';
 
 export const addBusHandler = () => {
-    update();
-    remove();
+    updateTimer();
+    removeTimer();
+
+    on('selectedLines', (lines) => removeBuses(lines));
 };
 
-const update = () => {
+const updateTimer = () => {
     setTimeout(async () => {
         const { selectedLines } = dataContext;
         const buses = await getBuses(selectedLines);
 
         defer(() => updateBuses(buses));
-        update();
+        updateTimer();
     }, UPDATE_INTERVAL_MS);
 };
 
-const remove = () => {
+const removeTimer = () => {
     setTimeout(() => {
         removeDeadBuses();
-        remove();
+        removeTimer();
     }, REMOVE_INTERVAL_MS);
 };
