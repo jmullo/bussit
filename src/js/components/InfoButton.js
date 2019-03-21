@@ -63,7 +63,7 @@ export default class InfoButton extends React.Component {
                     </Dialog>
                 }
                 <Fab size="small" color="primary" onClick={this.handleClick}>
-                    <InfoOutlined />
+                    <InfoOutlined viewBox="2 2 20 20" />
                 </Fab>
             </div>
         );

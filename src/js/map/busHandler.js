@@ -11,7 +11,7 @@ export const addBusHandler = () => {
     updateTimer();
     removeTimer();
 
-    on('selectedLines', (lines) => removeBuses(lines));
+    on('selectedLines', (selectedLines) => removeBuses(selectedLines));
 };
 
 const updateTimer = () => {
