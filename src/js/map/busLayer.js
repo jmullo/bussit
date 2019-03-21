@@ -9,6 +9,7 @@ import {
 import { whenNotZooming } from 'map/zoomHandler';
 
 const layerGroup = new LayerGroup();
+
 let busMarkers = {};
 
 export const createBusLayer = () => (layerGroup);

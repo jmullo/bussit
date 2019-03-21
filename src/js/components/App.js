@@ -3,6 +3,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import blue from '@material-ui/core/colors/blue';
 
+import DataContextProvider from 'components/DataContext';
 import AppLayout from 'components/AppLayout';
 
 const theme = createMuiTheme({
@@ -20,7 +21,9 @@ export default class App extends React.Component {
         return (
             <MuiThemeProvider theme={theme}>
                 <CssBaseline />
-                <AppLayout />
+                <DataContextProvider>
+                    <AppLayout />
+                </DataContextProvider>
             </MuiThemeProvider>
         );
     }

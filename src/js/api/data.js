@@ -1,4 +1,4 @@
-import { pick } from 'lodash';
+import { pick, isEmpty } from 'lodash';
 import axios from 'axios';
 
 import { API_URL, EXCLUDED_BUS_FIELDS } from 'constants/constants';
@@ -26,13 +26,14 @@ export const getLines = async () => {
                 }, {}));
 };
 
-export const getBuses = async () => {
-    return axios.get(`${API_URL}/vehicle-activity`, {
-                    params: {
-                        'directionRef': (requestNumber++ % 2) + 1,
-                        'exclude-fields': EXCLUDED_BUS_FIELDS
-                    }
-                })
+export const getBuses = async (selectedLines) => {
+    const params = {
+        'directionRef': (requestNumber++ % 2) + 1,
+        'exclude-fields': EXCLUDED_BUS_FIELDS,
+        ...!isEmpty(selectedLines) && { lineRef: selectedLines.join(',') }
+    };
+
+    return axios.get(`${API_URL}/vehicle-activity`, { params })
                 .then((response) => response.data.body.reduce((result, { monitoredVehicleJourney }) => {
                     result[monitoredVehicleJourney.vehicleRef] = {
                         ...pick(monitoredVehicleJourney, ['delay', 'lineRef']),

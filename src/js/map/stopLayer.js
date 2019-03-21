@@ -6,14 +6,22 @@ import { STOP_OPTIONS } from 'constants/constants';
 const layerGroup = new LayerGroup();
 const maxBounds = new LatLngBounds();
 
-export const createStopLayer = (map, stops) => {
+let map;
+
+export const createStopLayer = (mapRef) => {
+    map = mapRef;
+
+    return layerGroup;
+};
+
+export const updateStops = (stops) => {
 
     forOwn(stops, ({ latLng }) => {
         maxBounds.extend(latLng);
         new Circle(latLng, STOP_OPTIONS).addTo(layerGroup);
     });
 
-    layerGroup.on('add', () => map.setMaxBounds(maxBounds.pad(0.1)));
+    map.setMaxBounds(maxBounds.pad(0.1));
 
     return layerGroup;
 };

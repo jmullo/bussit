@@ -3,6 +3,7 @@ import { defer } from 'lodash';
 import { UPDATE_INTERVAL_MS, REMOVE_INTERVAL_MS } from 'constants/constants';
 
 import { getBuses } from 'api/data';
+import { dataContext } from 'components/DataContext';
 import { updateBuses, removeDeadBuses } from 'map/busLayer';
 
 export const addBusHandler = () => {
@@ -12,7 +13,8 @@ export const addBusHandler = () => {
 
 const update = () => {
     setTimeout(async () => {
-        const buses = await getBuses();
+        const { selectedLines } = dataContext;
+        const buses = await getBuses(selectedLines);
 
         defer(() => updateBuses(buses));
         update();
