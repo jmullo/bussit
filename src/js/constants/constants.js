@@ -44,7 +44,6 @@ export const STOP_OPTIONS = {
 };
 
 export const UPDATE_INTERVAL_MS = 500;
-export const REMOVE_INTERVAL_MS = 10000;
 
 export const BUS_EARLY_THRESHOLD = -60;
 export const BUS_LATE_THRESHOLD = 120;

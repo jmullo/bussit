@@ -1,9 +1,9 @@
 import { forOwn, includes } from 'lodash';
-import { LayerGroup, Util } from 'leaflet/dist/leaflet-src.esm';
+import { LayerGroup } from 'leaflet/dist/leaflet-src.esm';
 
 import { BUS_DEAD_THRESHOLD } from 'constants/constants';
 import { createMarker, updateMarker } from 'map/busMarker';
-import { whenNotZooming } from 'map/zoomHandler';
+import { onNextAnimFrame } from 'map/animFrame';
 
 const layerGroup = new LayerGroup();
 
@@ -14,15 +14,17 @@ export const createBusLayer = () => (layerGroup);
 export const updateBuses = (buses) => {
     forOwn(buses, (bus, vehicleRef) => {
         if (busMarkers[vehicleRef]) {
-            whenNotZooming(() => updateMarker(busMarkers[vehicleRef], bus));
+            onNextAnimFrame(() => updateMarker(busMarkers[vehicleRef], bus));
         } else {
-            whenNotZooming(() => busMarkers[vehicleRef] = createMarker(bus, layerGroup));
+            onNextAnimFrame(() => busMarkers[vehicleRef] = createMarker(bus, layerGroup));
         }
     });
+
+    onNextAnimFrame(removeDeadBuses);
 };
 
 export const removeBuses = (selectedLines) => {
-    Util.requestAnimFrame(() => {
+    onNextAnimFrame(() => {
         forOwn(busMarkers, (marker, vehicleRef) => {
             if (!includes(selectedLines, marker.lineRef)) {
                 marker.remove();
@@ -32,17 +34,13 @@ export const removeBuses = (selectedLines) => {
     });
 };
 
-export const removeDeadBuses = () => {
-    Util.requestAnimFrame(() => {
-        const timestamp = new Date().getTime();
+const removeDeadBuses = () => {
+    const timestamp = new Date().getTime();
 
-        forOwn(busMarkers, (marker, vehicleRef) => {
-            const deadSeconds = (timestamp - marker.timestamp) / 1000;
-    
-            if (deadSeconds > BUS_DEAD_THRESHOLD) {
-                marker.remove();
-                delete busMarkers[vehicleRef];
-            }
-        });
+    forOwn(busMarkers, (marker, vehicleRef) => {
+        if ((timestamp - marker.timestamp) / 1000 > BUS_DEAD_THRESHOLD) {
+            marker.remove();
+            delete busMarkers[vehicleRef];
+        }
     });
 };
