@@ -34,6 +34,25 @@ html, body {
     margin-top: 10px;
 }
 
+.lineSelector {
+    position: fixed;
+    bottom: 8px;
+    right: 55px;
+    z-index: 1000;
+    width: 280px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: flex-end;
+}
+
+.lineToggle button {
+    min-width: 31px;
+    width: 31px;
+    height: 31px;
+    margin: 2px;
+}
+
 .infoDialog {
     margin: 20px;
     user-select: none;
@@ -43,12 +62,13 @@ html, body {
     margin-right: 8px;
 }
 
-.link {
-    padding-right: 16px;
+.leaflet-marker-icon {
+    will-change: transform;
 }
 
-.leaflet-marker-icon {
+.smoothTransition .leaflet-marker-icon {
     transition: transform .5s linear;
+    will-change: transform;
 }
 
 .bus {

@@ -17,7 +17,7 @@ export default class DataContextProvider extends React.Component {
                 object[key] = value;
     
                 emit(key, value);
-                component.forceUpdate();
+                component.setState(dataContext);
     
                 return true;
             }
@@ -26,7 +26,7 @@ export default class DataContextProvider extends React.Component {
 
     render() {
         return (
-            <DataContext.Provider value={dataContext}>
+            <DataContext.Provider value={this.state || dataContext}>
                 {this.props.children}
             </DataContext.Provider>
         );

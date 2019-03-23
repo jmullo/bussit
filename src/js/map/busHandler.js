@@ -1,14 +1,13 @@
-import { UPDATE_INTERVAL_MS } from 'constants/constants';
-
+import { UPDATE_INTERVAL_MS } from 'constants/config';
 import { getBuses } from 'api/data';
 import { dataContext } from 'components/DataContext';
 import { on } from 'utils/events';
-import { updateBuses, removeBuses } from 'map/busLayer';
+import { updateBuses, removeUnselectedBuses } from 'map/busLayer';
 
 export const addBusHandler = () => {
     updateTimer();
 
-    on('selectedLines', (selectedLines) => removeBuses(selectedLines));
+    on('selectedLines', removeUnselectedBuses);
 };
 
 const updateTimer = () => {
@@ -16,7 +15,7 @@ const updateTimer = () => {
         const { selectedLines } = dataContext;
         const buses = await getBuses(selectedLines);
 
-        setTimeout(() => updateBuses(buses), 1);
+        updateBuses(buses);
         updateTimer();
     }, UPDATE_INTERVAL_MS);
 };

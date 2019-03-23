@@ -1,7 +1,8 @@
-import { forOwn, includes } from 'lodash';
+import { forOwn, includes, isEmpty } from 'lodash';
 import { LayerGroup } from 'leaflet/dist/leaflet-src.esm';
 
-import { BUS_DEAD_THRESHOLD } from 'constants/constants';
+import { BUS_DEAD_THRESHOLD } from 'constants/config';
+import { dataContext } from 'components/DataContext';
 import { createMarker, updateMarker } from 'map/busMarker';
 import { onNextAnimFrame } from 'map/animFrame';
 
@@ -9,29 +10,33 @@ const layerGroup = new LayerGroup();
 
 let busMarkers = {};
 
-export const createBusLayer = () => (layerGroup);
+export const addBusLayer = (mapRef) => layerGroup.addTo(mapRef);
 
 export const updateBuses = (buses) => {
     forOwn(buses, (bus, vehicleRef) => {
-        if (busMarkers[vehicleRef]) {
-            onNextAnimFrame(() => updateMarker(busMarkers[vehicleRef], bus));
-        } else {
-            onNextAnimFrame(() => busMarkers[vehicleRef] = createMarker(bus, layerGroup));
-        }
+        onNextAnimFrame(() => {
+            if (isLineSelected(bus.lineRef)) {
+                if (busMarkers[vehicleRef]) {
+                    updateMarker(busMarkers[vehicleRef], bus);
+                } else {
+                    busMarkers[vehicleRef] = createMarker(bus, layerGroup);
+                }
+            }
+        }, `updateBus-${vehicleRef}`);
     });
 
-    onNextAnimFrame(removeDeadBuses);
+    onNextAnimFrame(removeDeadBuses, 'removeDeadBuses');
 };
 
-export const removeBuses = (selectedLines) => {
+export const removeUnselectedBuses = () => {
     onNextAnimFrame(() => {
         forOwn(busMarkers, (marker, vehicleRef) => {
-            if (!includes(selectedLines, marker.lineRef)) {
+            if (!isLineSelected(marker.lineRef)) {
                 marker.remove();
                 delete busMarkers[vehicleRef];
             }
         });
-    });
+    }, 'removeUnselectedBuses', true);
 };
 
 const removeDeadBuses = () => {
@@ -43,4 +48,10 @@ const removeDeadBuses = () => {
             delete busMarkers[vehicleRef];
         }
     });
+};
+
+const isLineSelected = (lineRef) => {
+    const { selectedLines } = dataContext;
+
+    return isEmpty(selectedLines) || includes(selectedLines, lineRef); 
 };

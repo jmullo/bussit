@@ -1,42 +1,59 @@
+import { includes, without } from 'lodash';
+
 import React from 'react';
-import Grid from '@material-ui/core/Grid';
 import Fab from '@material-ui/core/Fab';
-import Dialog from '@material-ui/core/Dialog';
-import Link from '@material-ui/core/Link';
-import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
 import DirectionsBus from '@material-ui/icons/DirectionsBus';
 
 import { dataContext, DataContext } from 'components/DataContext';
-import { emit } from 'utils/events';
 
 class LinesButton extends React.Component {
 
     state = {
-        dialogOpen: false
+        selectorVisible: false
     };
 
     handleClose = () => {
-        this.setState({ dialogOpen: false });
+        this.setState({ selectorVisible: false });
     };
 
-    handleClick = value => {
-        dataContext.selectedLines = ["3"];
-        this.setState({ dialogOpen: true });
+    handleClick = () => {
+        this.setState({ selectorVisible: !this.state.selectorVisible });
+    };
+
+    handleSelect = (lineRef) => {
+        const { selectedLines } = this.context;
+
+        if (includes(selectedLines, lineRef)) {
+            dataContext.selectedLines = without(selectedLines, lineRef);
+        } else {
+            dataContext.selectedLines = [...selectedLines, lineRef];
+        }
     };
 
     render() {
+        const { lineRefs, selectedLines } = this.context;
 
         return (
             <div className="button">
                 {
-                    this.state.dialogOpen &&
-                    <Dialog open={this.state.dialogOpen} onClose={this.handleClose}>
-                        <div className="infoDialog">
-                            {
-                                
-                            }
-                        </div>
-                    </Dialog>
+                    this.state.selectorVisible &&
+                    
+                    <div className="lineSelector">
+                        {
+                            lineRefs.map((lineRef) => (
+                                <div key={lineRef} className="lineToggle">
+                                    <Button variant="contained" 
+                                            size="small"
+                                            color={includes(selectedLines, lineRef) ? "secondary" : "primary"}
+                                            onClick={() => this.handleSelect(lineRef)}>
+                                        {lineRef}
+                                    </Button>
+                                </div>
+                            ))
+                        }
+                    </div>
+                    
                 }
                 <Fab size="small" color="primary" onClick={this.handleClick}>
                     <DirectionsBus viewBox="2 2 20 20" />

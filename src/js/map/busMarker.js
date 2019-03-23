@@ -2,7 +2,7 @@ import { startsWith } from 'lodash';
 import { Marker, DivIcon } from 'leaflet/dist/leaflet-src.esm';
 import Duration from 'luxon/src/duration';
 
-import { BUS_EARLY_THRESHOLD, BUS_LATE_THRESHOLD } from 'constants/constants';
+import { BUS_EARLY_THRESHOLD, BUS_LATE_THRESHOLD } from 'constants/config';
 
 export const updateMarker = (marker, bus) => {
     if (marker) {

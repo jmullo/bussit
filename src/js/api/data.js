@@ -1,7 +1,7 @@
 import { pick, isEmpty } from 'lodash';
 import axios from 'axios';
 
-import { API_URL, EXCLUDED_BUS_FIELDS } from 'constants/constants';
+import { API_URL, EXCLUDED_BUS_FIELDS } from 'constants/config';
 
 let requestNumber = 0;
 

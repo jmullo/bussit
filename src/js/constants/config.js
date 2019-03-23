@@ -14,12 +14,14 @@ export const MAP_OPTIONS = {
     preferCanvas: true,
     attributionControl: false,
     zoomControl: false,
-    maxBoundsViscosity: 1.0,
     bounceAtZoomLimits: false,
+    maxBoundsViscosity: 1.0,
     center: [61.498167, 23.760833],
     zoom: 13,
     minZoom: 10,
-    maxZoom: 18
+    maxZoom: 18,
+    wheelPxPerZoomLevel: 120,
+    wheelDebounceTime: 20
 };
 
 export const TILE_LAYER_URL_TEMPLATE = 'http://{s}.traffic.maps.cit.api.here.com/maptile/2.1/' +
@@ -42,6 +44,8 @@ export const STOP_OPTIONS = {
     color: 'rgba(255, 255, 255)',
     fillColor: 'rgba(0, 112, 186)'
 };
+
+export const STOP_MIN_ZOOM_LEVEL = 15;
 
 export const UPDATE_INTERVAL_MS = 500;
 

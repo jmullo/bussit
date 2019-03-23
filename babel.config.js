@@ -4,9 +4,8 @@ module.exports = function(api) {
         [
             '@babel/preset-env',
             {
-                'modules': false,
-                'loose': true,
-                'useBuiltIns': 'entry'
+                modules: false,
+                loose: true
             }
         ],
         '@babel/preset-react'
@@ -22,8 +21,8 @@ module.exports = function(api) {
         plugins.push([
             'transform-react-remove-prop-types',
             {
-                'mode': 'remove',
-                'removeImport': 'true'
+                mode: 'remove',
+                removeImport: 'true'
             }
         ]);
     }
