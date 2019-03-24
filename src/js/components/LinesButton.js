@@ -4,6 +4,7 @@ import React from 'react';
 import Fab from '@material-ui/core/Fab';
 import Button from '@material-ui/core/Button';
 import DirectionsBus from '@material-ui/icons/DirectionsBus';
+import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 
 import { dataContext, DataContext } from 'components/DataContext';
 
@@ -13,7 +14,7 @@ class LinesButton extends React.Component {
         selectorVisible: false
     };
 
-    handleClose = () => {
+    handleClickAway = (event) => {
         this.setState({ selectorVisible: false });
     };
 
@@ -35,30 +36,30 @@ class LinesButton extends React.Component {
         const { lineRefs, selectedLines } = this.context;
 
         return (
-            <div className="button">
-                {
-                    this.state.selectorVisible &&
-                    
-                    <div className="lineSelector">
-                        {
-                            lineRefs.map((lineRef) => (
-                                <div key={lineRef} className="lineToggle">
-                                    <Button variant="contained" 
-                                            size="small"
-                                            color={includes(selectedLines, lineRef) ? "secondary" : "primary"}
-                                            onClick={() => this.handleSelect(lineRef)}>
-                                        {lineRef}
-                                    </Button>
-                                </div>
-                            ))
-                        }
-                    </div>
-                    
-                }
-                <Fab size="small" color="primary" onClick={this.handleClick}>
-                    <DirectionsBus viewBox="2 2 20 20" />
-                </Fab>
-            </div>
+            <ClickAwayListener onClickAway={this.handleClickAway}>
+                <div className="button">
+                    {
+                        this.state.selectorVisible &&
+                        <div className="lineSelector">
+                            {
+                                lineRefs.map((lineRef) => (
+                                    <div key={lineRef} className="lineToggle">
+                                        <Button variant="contained"
+                                                size="small"
+                                                color={includes(selectedLines, lineRef) ? "secondary" : "primary"}
+                                                onClick={() => this.handleSelect(lineRef)}>
+                                            {lineRef}
+                                        </Button>
+                                    </div>
+                                ))
+                            }
+                        </div>
+                    }
+                    <Fab size="small" color="primary" onClick={this.handleClick}>
+                        <DirectionsBus viewBox="2 2 20 20" />
+                    </Fab>
+                </div>
+            </ClickAwayListener>
         );
     }
 }

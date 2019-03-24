@@ -2,6 +2,7 @@ import { UPDATE_INTERVAL_MS } from 'constants/config';
 import { getBuses } from 'api/data';
 import { dataContext } from 'components/DataContext';
 import { on } from 'utils/events';
+import { pageVisible } from 'utils/visibility';
 import { updateBuses, removeUnselectedBuses } from 'map/busLayer';
 
 export const addBusHandler = () => {
@@ -12,10 +13,13 @@ export const addBusHandler = () => {
 
 const updateTimer = () => {
     setTimeout(async () => {
-        const { selectedLines } = dataContext;
-        const buses = await getBuses(selectedLines);
+        if (pageVisible) {
+            const { selectedLines } = dataContext;
+            const buses = await getBuses(selectedLines);
 
-        updateBuses(buses);
+            updateBuses(buses);
+        }
+
         updateTimer();
     }, UPDATE_INTERVAL_MS);
 };
