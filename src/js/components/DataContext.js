@@ -6,7 +6,8 @@ import { createProxy } from 'utils/proxy';
 const initialState = {
     lines: {},
     lineRefs: [],
-    selectedLines: []
+    selectedLines: [],
+    locateEnabled: false
 };
 
 export const DataContext = React.createContext();

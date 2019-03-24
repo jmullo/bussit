@@ -6,6 +6,7 @@ import {
 
 import { addViewHandler } from 'map/viewHandler';
 import { addZoomHandler } from 'map/zoomHandler';
+import { addLocationHandler } from 'map/locationHandler';
 import { addStopLayer } from 'map/stopLayer';
 import { addBusLayer } from 'map/busLayer';
 import { addLineHandler } from 'map/lineHandler';
@@ -19,6 +20,7 @@ export const initMap = async (element) => {
 
     addViewHandler(map);
     addZoomHandler(map);
+    addLocationHandler(map);
 
     new TileLayer(TILE_LAYER_URL_TEMPLATE, TILE_LAYER_OPTIONS).addTo(map);
 

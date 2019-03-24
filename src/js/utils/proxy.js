@@ -11,7 +11,7 @@ const createPolyfill = (target, handler) => {
     };
 
     const setter = function(property, value) {
-        const status = handler.set(this, property, value, proxy);
+        handler.set(this, property, value, proxy);
     };
 
     Object.setPrototypeOf(proxy, Object.getPrototypeOf(target));

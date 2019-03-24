@@ -136,6 +136,7 @@ module.exports = (env, argv) => {
                 template: './src/html/index.html'
             }),
             new CopyPlugin([
+                { from: './src/html/geolocation.html' },
                 { from: './src/html/manifest.json' },
                 { from: './src/img/bussit-192.png' },
                 { from: './src/img/bussit-512.png' }
