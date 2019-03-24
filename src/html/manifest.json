@@ -1,0 +1,9 @@
+{
+    "short_name": "Bussit",
+    "name": "Bussit",
+    "start_url": "/",
+    "background_color": "#2196f3",
+    "display": "standalone",
+    "scope": "/",
+    "theme_color": "#2196f3"
+}

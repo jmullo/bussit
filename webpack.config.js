@@ -1,6 +1,7 @@
-const CleanWebpackPlugin = require('clean-webpack-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CleanPlugin = require('clean-webpack-plugin');
+const HtmlPlugin = require('html-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = (env, argv) => {
     process.env.NODE_ENV = argv.mode;
@@ -128,12 +129,15 @@ module.exports = (env, argv) => {
             ]
         },
         plugins: [
-            new CleanWebpackPlugin({
+            new CleanPlugin({
                 verbose: false
             }),
-            new HtmlWebpackPlugin({
+            new HtmlPlugin({
                 template: './src/html/index.html'
-            })
+            }),
+            new CopyPlugin([{
+                from: './src/html/manifest.json'
+            }]),
         ]
     };
 };
