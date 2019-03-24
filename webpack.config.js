@@ -44,19 +44,26 @@ module.exports = (env, argv) => {
                     parallel: true,
                     sourceMap: false,
                     terserOptions: {
-                        ecma: undefined,
                         warnings: false,
-                        parse: {},
-                        compress: {},
-                        mangle: true,
+                        parse: {
+                            ecma: 8
+                        },
+                        compress: {
+                            ecma: 5
+                        },
+                        mangle: {
+                            safari10: true,
+                        },
                         module: false,
-                        output: null,
+                        output: {
+                            ecma: 5,
+                            safari10: true
+                        },
                         toplevel: true,
                         nameCache: null,
                         ie8: false,
                         keep_classnames: false,
-                        keep_fnames: false,
-                        safari10: false
+                        keep_fnames: false
                     },
                 }),
             ],
@@ -109,7 +116,7 @@ module.exports = (env, argv) => {
                 },
                 {
                     test: /\.(png|woff|woff2)$/,
-                    loader: 'url-loader' 
+                    loader: 'url-loader'
                 },
                 {
                     test: /\.ico$/,

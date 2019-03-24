@@ -15,10 +15,10 @@ export default class DataContextProvider extends React.Component {
         dataContext = new Proxy({}, {
             set(object, key, value) {
                 object[key] = value;
-    
+
                 emit(key, value);
                 component.setState(dataContext);
-    
+
                 return true;
             }
         });
@@ -26,7 +26,7 @@ export default class DataContextProvider extends React.Component {
 
     render() {
         return (
-            <DataContext.Provider value={this.state || dataContext}>
+            <DataContext.Provider value={this.state || {}}>
                 {this.props.children}
             </DataContext.Provider>
         );
