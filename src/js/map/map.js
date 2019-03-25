@@ -29,5 +29,5 @@ export const initMap = async (element) => {
 
     addLineHandler();
     addStopHandler();
-    addBusHandler();
+    addBusHandler(map);
 };

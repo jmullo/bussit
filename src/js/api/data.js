@@ -12,7 +12,7 @@ export const getStops = async () => {
                         name: value.name,
                         latLng: value.location.split(',').map((string) => Number(string))
                     };
-                    
+
                     return result;
                 }, {}));
 };
@@ -21,7 +21,7 @@ export const getLines = async () => {
     return axios.get(`${API_URL}/lines`)
                 .then((response) => response.data.body.reduce((result, value) => {
                     result[value.name] = pick(value, ['name', 'description']);
-                    
+
                     return result;
                 }, {}));
 };
@@ -36,7 +36,12 @@ export const getBuses = async (selectedLines) => {
     return axios.get(`${API_URL}/vehicle-activity`, { params })
                 .then((response) => response.data.body.reduce((result, { monitoredVehicleJourney }) => {
                     result[monitoredVehicleJourney.vehicleRef] = {
-                        ...pick(monitoredVehicleJourney, ['delay', 'lineRef']),
+                        ...pick(monitoredVehicleJourney, [
+                            'delay',
+                            'lineRef',
+                            'journeyPatternRef',
+                            'vehicleRef'
+                        ]),
                         bearing: Number(monitoredVehicleJourney.bearing),
                         speed: Number(monitoredVehicleJourney.speed),
                         latLng: [
@@ -44,7 +49,7 @@ export const getBuses = async (selectedLines) => {
                             Number(monitoredVehicleJourney.vehicleLocation.longitude),
                         ]
                     };
-                    
+
                     return result;
                 }, {}));
 };
@@ -58,4 +63,3 @@ export const getJourneyPatterns = async () => {
     return axios.get(`${API_URL}/journey-patterns`)
                 .then((response) => (response.data.body));
 };
-

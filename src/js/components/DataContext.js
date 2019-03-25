@@ -4,9 +4,11 @@ import { emit } from 'utils/events';
 import { createProxy } from 'utils/proxy';
 
 const initialState = {
+    buses: {},
     lines: {},
     lineRefs: [],
     selectedLines: [],
+    selectedBus: null,
     locateEnabled: false
 };
 
