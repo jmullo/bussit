@@ -2,6 +2,7 @@ import { forOwn } from 'lodash';
 import { LayerGroup, LatLngBounds, Circle } from 'leaflet/dist/leaflet-src.esm';
 
 import { STOP_OPTIONS, STOP_MIN_ZOOM_LEVEL } from 'constants/config';
+import { dataContext } from '../components/DataContext';
 
 const layerGroup = new LayerGroup();
 const maxBounds = new LatLngBounds();
@@ -29,6 +30,8 @@ export const updateStops = (stops) => {
         maxBounds.extend(latLng);
         new Circle(latLng, STOP_OPTIONS).addTo(layerGroup);
     });
+
+    dataContext.maxBounds = maxBounds;
 
     map.setMaxBounds(maxBounds.pad(0.1));
 

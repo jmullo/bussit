@@ -6,6 +6,9 @@ import App from 'components/App';
 import 'fonts.css';
 import 'leaflet/dist/leaflet.css';
 import 'bussit.css';
-import 'favicon.ico';
+
+if (navigator.serviceWorker) {
+    navigator.serviceWorker.register('serviceWorker.js');
+}
 
 export default ReactDOM.render(<App />, document.getElementById('main'));

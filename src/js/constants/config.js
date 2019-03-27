@@ -1,3 +1,4 @@
+export const PROXY_URL = 'https://yacdn.org/proxy/';
 export const API_URL = 'http://data.itsfactory.fi/journeys/api/1';
 
 export const EXCLUDED_BUS_FIELDS = [
@@ -24,9 +25,9 @@ export const MAP_OPTIONS = {
     wheelDebounceTime: 20
 };
 
-export const TILE_LAYER_URL_TEMPLATE = 'http://{s}.traffic.maps.cit.api.here.com/maptile/2.1/' +
+export const TILE_LAYER_URL_TEMPLATE = 'https://{s}.traffic.maps.cit.api.here.com/maptile/2.1/' +
                                        'traffictile/newest/normal.day.grey/{z}/{x}/{y}/256/png8' +
-                                       '?min_traffic_congestion=heavy' + 
+                                       '?min_traffic_congestion=heavy' +
                                        '&app_id=PSK0FXmSMedrhq0pnjeh&app_code=NrsNjPndpr8j9Ab-WrN7hg';
 
 export const TILE_LAYER_OPTIONS = {
@@ -34,6 +35,12 @@ export const TILE_LAYER_OPTIONS = {
     minZoom: MAP_OPTIONS.minZoom,
     maxZoom: MAP_OPTIONS.maxZoom,
     keepBuffer: 4
+};
+
+export const GEOLOCATION_OPTIONS = {
+    enableHighAccuracy: true,
+    timeout: 10000,
+    maximumAge: 0
 };
 
 export const STOP_OPTIONS = {

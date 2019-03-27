@@ -2,21 +2,21 @@
     "short_name": "Bussit",
     "name": "Tampereen bussit",
     "description": "Tampereen bussit kartalla.",
+    "display": "standalone",
+    "start_url": "./",
+    "scope": "/",
+    "background_color": "#2196f3",
+    "theme_color": "#2196f3",
     "icons": [
         {
-          "src": "bussit-192.png",
-          "type": "image/png",
-          "sizes": "192x192"
+            "src": "bussit-192.png",
+            "type": "image/png",
+            "sizes": "192x192"
         },
         {
             "src": "bussit-512.png",
             "type": "image/png",
             "sizes": "512x512"
         }
-    ],
-    "start_url": "./",
-    "background_color": "#2196f3",
-    "display": "standalone",
-    "scope": "/",
-    "theme_color": "#2196f3"
+    ]
 }

@@ -12,20 +12,26 @@ class LocateButton extends React.Component {
     };
 
     render() {
+        const { geolocation } = navigator;
         const { locateEnabled } = this.context;
 
-        return (
-            <div className="button">
-                <Fab size="small" color="primary" onClick={this.handleClick}>
-                    {
-                        locateEnabled && <GpsOffOutlined viewBox="2 2 20 20" />
-                    }
-                    {
-                        !locateEnabled && <GpsFixedOutlined viewBox="2 2 20 20" />
-                    }
-                </Fab>
-            </div>
-        );
+        if (geolocation && (location.protocol === 'https:' ||
+                            process.env.NODE_ENV === 'development')) {
+            return (
+                <div className="button">
+                    <Fab size="small" color="primary" onClick={this.handleClick}>
+                        {
+                            locateEnabled && <GpsOffOutlined viewBox="2 2 20 20" />
+                        }
+                        {
+                            !locateEnabled && <GpsFixedOutlined viewBox="2 2 20 20" />
+                        }
+                    </Fab>
+                </div>
+            );
+        }
+
+        return null;
     }
 }
 

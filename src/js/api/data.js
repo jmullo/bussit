@@ -1,12 +1,12 @@
 import { pick, isEmpty } from 'lodash';
 import axios from 'axios';
 
-import { API_URL, EXCLUDED_BUS_FIELDS } from 'constants/config';
+import { PROXY_URL, API_URL, EXCLUDED_BUS_FIELDS } from 'constants/config';
 
 let requestNumber = 0;
 
 export const getStops = async () => {
-    return axios.get(`${API_URL}/stop-points`)
+    return axios.get(`${PROXY_URL}${API_URL}/stop-points`)
                 .then((response) => response.data.body.reduce((result, value) => {
                     result[value.shortName] = {
                         name: value.name,
@@ -18,7 +18,7 @@ export const getStops = async () => {
 };
 
 export const getLines = async () => {
-    return axios.get(`${API_URL}/lines`)
+    return axios.get(`${PROXY_URL}${API_URL}/lines`)
                 .then((response) => response.data.body.reduce((result, value) => {
                     result[value.name] = pick(value, ['name', 'description']);
 
@@ -33,7 +33,7 @@ export const getBuses = async (selectedLines) => {
         ...!isEmpty(selectedLines) && { lineRef: selectedLines.join(',') }
     };
 
-    return axios.get(`${API_URL}/vehicle-activity`, { params })
+    return axios.get(`${PROXY_URL}${API_URL}/vehicle-activity`, { params })
                 .then((response) => response.data.body.reduce((result, { monitoredVehicleJourney }) => {
                     result[monitoredVehicleJourney.vehicleRef] = {
                         ...pick(monitoredVehicleJourney, [
@@ -55,11 +55,11 @@ export const getBuses = async (selectedLines) => {
 };
 
 export const getRoutes = async () => {
-    return axios.get(`${API_URL}/routes`)
+    return axios.get(`${PROXY_URL}${API_URL}/routes`)
                 .then((response) => (response.data.body));
 };
 
 export const getJourneyPatterns = async () => {
-    return axios.get(`${API_URL}/journey-patterns`)
+    return axios.get(`${PROXY_URL}${API_URL}/journey-patterns`)
                 .then((response) => (response.data.body));
 };

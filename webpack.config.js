@@ -118,13 +118,6 @@ module.exports = (env, argv) => {
                 {
                     test: /\.(png|woff|woff2)$/,
                     loader: 'url-loader'
-                },
-                {
-                    test: /\.ico$/,
-                    loader: 'file-loader',
-                    options: {
-                        name: '[name].[ext]'
-                    }
                 }
             ]
         },
@@ -136,7 +129,7 @@ module.exports = (env, argv) => {
                 template: './src/html/index.html'
             }),
             new CopyPlugin([
-                { from: './src/html/geolocation.html' },
+                { from: './src/js/serviceWorker.js' },
                 { from: './src/html/manifest.json' },
                 { from: './src/img/bussit-192.png' },
                 { from: './src/img/bussit-512.png' }

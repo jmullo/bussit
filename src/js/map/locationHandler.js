@@ -1,39 +1,38 @@
 import { LatLng } from 'leaflet/dist/leaflet-src.esm';
 
+import { GEOLOCATION_OPTIONS } from 'constants/config';
 import { dataContext } from 'components/DataContext';
 import { on } from 'utils/events';
 
-let iframe;
+let map;
+let watchId;
 
-export const addLocationHandler = (map) => {
+export const addLocationHandler = (mapRef) => {
+    const { geolocation } = navigator;
 
-    window.addEventListener('message', (message) => {
-        const { type, accuracy, latitude, longitude, error } = message.data;
-
-        if (type === 'locateSuccess') {
-            const bounds = new LatLng(latitude, longitude).toBounds(accuracy);
-            map.flyToBounds(bounds);
-        } else if (type === 'locateError') {
-            dataContext.locateEnabled = false;
-        }
-    });
+    map = mapRef;
 
     on('locateEnabled', (enabled) => {
         if (enabled) {
-            iframe = createFrame();
-            document.body.appendChild(iframe);
+            watchId = geolocation.watchPosition(handleSuccess, handleError, GEOLOCATION_OPTIONS);
         } else {
-            document.body.removeChild(iframe);
+            geolocation.clearWatch(watchId);
         }
     });
 };
 
-const createFrame = () => {
-    const frame = document.createElement('iframe');
+const handleSuccess = ({ coords }) => {
+    const { accuracy, latitude, longitude } = coords;
+    const latLng = new LatLng(latitude, longitude);
+    const { maxBounds } = dataContext;
 
-    frame.src = 'geolocation.html';
-    frame.allow = 'geolocation';
-    frame.className = 'iframe';
+    if (maxBounds && maxBounds.contains(latLng)) {
+        const bounds = latLng.toBounds(accuracy);
+        map.flyToBounds(bounds);
+    }
+};
 
-    return frame;
+const handleError = ({ message }) => {
+    dataContext.locateEnabled = false;
+    console.log(message);
 };
