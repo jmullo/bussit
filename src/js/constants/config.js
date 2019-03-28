@@ -45,6 +45,11 @@ export const GEOLOCATION_OPTIONS = {
     maximumAge: 0
 };
 
+export const PAN_OPTIONS = {
+    animate: true,
+    duration: 0.5
+};
+
 export const STOP_OPTIONS = {
     radius: 4,
     weight: 1,

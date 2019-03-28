@@ -1,6 +1,6 @@
 import { LatLng } from 'leaflet/dist/leaflet-src.esm';
 
-import { GEOLOCATION_OPTIONS, GEOLOCATION_MAX_ZOOM } from 'constants/config';
+import { GEOLOCATION_OPTIONS, GEOLOCATION_MAX_ZOOM, PAN_OPTIONS } from 'constants/config';
 import { dataContext } from 'components/DataContext';
 import { on } from 'utils/events';
 
@@ -18,6 +18,7 @@ export const addLocationHandler = (mapRef) => {
             watchId = geolocation.watchPosition(handleSuccess, handleError, GEOLOCATION_OPTIONS);
         } else {
             geolocation.clearWatch(watchId);
+            positionNumber = 0;
         }
     });
 };
@@ -30,20 +31,15 @@ const handleSuccess = ({ coords }) => {
     if (maxBounds && maxBounds.contains(latLng)) {
         const bounds = latLng.toBounds(accuracy);
 
-        if (++positionNumber > 1) {
+        if (!positionNumber++) {
             map.fitBounds(bounds, {
-                animate: true,
+                ...PAN_OPTIONS,
                 maxZoom: GEOLOCATION_MAX_ZOOM
             });
         } else {
-            map.panTo(latLng, { animate: true });
+            map.panTo(latLng, PAN_OPTIONS);
         }
     }
 };
 
-const handleError = ({ message }) => {
-    dataContext.locateEnabled = false;
-    positionNumber = 0;
-
-    console.log(message);
-};
+const handleError = ({ message }) => console.log(message);
