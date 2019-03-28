@@ -25,7 +25,8 @@ export default class InfoButton extends React.Component {
             <div className="button">
                 {
                     this.state.dialogOpen &&
-                    <Dialog open={this.state.dialogOpen} onClose={this.handleClose}>
+                    <Dialog className="dialog" open={this.state.dialogOpen} onClose={this.handleClose}>
+
                         <div className="infoDialog">
                             <Grid container spacing={8} direction="column" alignItems="flex-start">
                                 <Grid item>
@@ -37,6 +38,18 @@ export default class InfoButton extends React.Component {
                                             variant="body1"
                                             href="http://wiki.itsfactory.fi/index.php/Journeys_API">
                                             Journeys API
+                                        </Link>
+                                    </Typography>
+                                </Grid>
+                                <Grid item>
+                                    <Typography variant="body1">
+                                        Proxy:&nbsp;
+                                        <Link
+                                            className="link"
+                                            color="secondary"
+                                            variant="body1"
+                                            href="https://yacdn.org/">
+                                            Yet Another CDN
                                         </Link>
                                     </Typography>
                                 </Grid>
@@ -61,7 +74,7 @@ export default class InfoButton extends React.Component {
                                         color="secondary"
                                         variant="body1"
                                         href="https://github.com/jmullo/bussit">
-                                        github.com/jmullo/bussit
+                                        https://github.com/jmullo/bussit
                                     </Link>
                                 </Grid>
                                 <Grid item>
@@ -70,11 +83,11 @@ export default class InfoButton extends React.Component {
                                         color="secondary"
                                         variant="body1"
                                         href="mailto:jussi.mullo@iki.fi">
-                                        
+
                                         jussi.mullo@iki.fi
                                     </Link>
                                 </Grid>
-                            </Grid>           
+                            </Grid>
                         </div>
                     </Dialog>
                 }

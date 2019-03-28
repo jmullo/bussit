@@ -105,6 +105,10 @@ p.busLine {
     margin: 2px;
 }
 
+.dialog > div > div {
+    margin: 24px;
+}
+
 .infoDialog {
     margin: 20px;
     user-select: none;
