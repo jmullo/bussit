@@ -31,7 +31,7 @@ class BusPanel extends React.Component {
         return (
             <div className="busPanel">
                 <Paper className="paper" elevation={4}>
-                    <Typography variant="body2">
+                    <Typography className="busLine" variant="body2">
                         Linja {journeyPatternRef}: {lineDescription}
                     </Typography>
                     <Paper className={detailsClassName} elevation={0}>

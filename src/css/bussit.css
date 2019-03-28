@@ -70,7 +70,7 @@ html, body {
     color: rgba(190, 0, 0, 1);
 }
 
-.busLine {
+p.busLine {
     font-weight: 500;
 }
 

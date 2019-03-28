@@ -5,61 +5,53 @@ import { PROXY_URL, API_URL, EXCLUDED_BUS_FIELDS } from 'constants/config';
 
 let requestNumber = 0;
 
-export const getStops = async () => {
-    return axios.get(`${PROXY_URL}${API_URL}/stop-points`)
-                .then((response) => response.data.body.reduce((result, value) => {
-                    result[value.shortName] = {
-                        name: value.name,
-                        latLng: value.location.split(',').map((string) => Number(string))
-                    };
-
-                    return result;
-                }, {}));
-};
-
-export const getLines = async () => {
-    return axios.get(`${PROXY_URL}${API_URL}/lines`)
-                .then((response) => response.data.body.reduce((result, value) => {
-                    result[value.name] = pick(value, ['name', 'description']);
-
-                    return result;
-                }, {}));
-};
+export const getStops = async () => get('/stop-points', handleStops);
+export const getLines = async () => get('/lines', handleLines);
 
 export const getBuses = async (selectedLines) => {
-    const params = {
+    const parameters = {
         'directionRef': (requestNumber++ % 2) + 1,
         'exclude-fields': EXCLUDED_BUS_FIELDS,
         ...!isEmpty(selectedLines) && { lineRef: selectedLines.join(',') }
     };
 
-    return axios.get(`${PROXY_URL}${API_URL}/vehicle-activity`, { params })
-                .then((response) => response.data.body.reduce((result, { monitoredVehicleJourney }) => {
-                    result[monitoredVehicleJourney.vehicleRef] = {
-                        ...pick(monitoredVehicleJourney, [
-                            'delay',
-                            'lineRef',
-                            'journeyPatternRef',
-                            'vehicleRef'
-                        ]),
-                        bearing: Number(monitoredVehicleJourney.bearing),
-                        speed: Number(monitoredVehicleJourney.speed),
-                        latLng: [
-                            Number(monitoredVehicleJourney.vehicleLocation.latitude),
-                            Number(monitoredVehicleJourney.vehicleLocation.longitude),
-                        ]
-                    };
-
-                    return result;
-                }, {}));
+    return get('/vehicle-activity', handleBuses, parameters);
 };
 
-export const getRoutes = async () => {
-    return axios.get(`${PROXY_URL}${API_URL}/routes`)
-                .then((response) => (response.data.body));
+const get = (endpoint, handler, parameters = {}) => {
+    return axios.get(`${PROXY_URL}${API_URL}${endpoint}`, parameters)
+                .catch((error) => handleError(endpoint, error))
+                .then(handler)
+                .catch((error) => handleError(endpoint, error));
 };
 
-export const getJourneyPatterns = async () => {
-    return axios.get(`${PROXY_URL}${API_URL}/journey-patterns`)
-                .then((response) => (response.data.body));
-};
+const handleError = (endpoint, error) => console.log(`Error fetching ${endpoint}`, error);
+
+const handleStops = (response) => response.data.body.reduce((result, value) => {
+    result[value.shortName] = {
+        name: value.name,
+        latLng: value.location.split(',').map((string) => Number(string))
+    };
+
+    return result;
+}, {});
+
+const handleLines = (response) => response.data.body.reduce((result, value) => {
+    result[value.name] = pick(value, ['name', 'description']);
+
+    return result;
+}, {})
+
+const handleBuses = (response) => response.data.body.reduce((result, { monitoredVehicleJourney }) => {
+    result[monitoredVehicleJourney.vehicleRef] = {
+        ...pick(monitoredVehicleJourney, ['delay', 'lineRef', 'journeyPatternRef', 'vehicleRef']),
+        bearing: Number(monitoredVehicleJourney.bearing),
+        speed: Number(monitoredVehicleJourney.speed),
+        latLng: [
+            Number(monitoredVehicleJourney.vehicleLocation.latitude),
+            Number(monitoredVehicleJourney.vehicleLocation.longitude),
+        ]
+    };
+
+    return result;
+}, {})

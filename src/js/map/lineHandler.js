@@ -8,7 +8,7 @@ import { dataContext } from 'components/DataContext';
 export const addLineHandler = async () => {
     const savedLines = load('selectedLines');
 
-    dataContext.lines = await getLines();
+    dataContext.lines = await getLines() || {};
     dataContext.lineRefs = getLineRefs(dataContext.lines);
     dataContext.selectedLines = intersection(dataContext.lineRefs, savedLines);
 

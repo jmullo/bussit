@@ -37,6 +37,8 @@ export const TILE_LAYER_OPTIONS = {
     keepBuffer: 4
 };
 
+export const GEOLOCATION_MAX_ZOOM = 14;
+
 export const GEOLOCATION_OPTIONS = {
     enableHighAccuracy: true,
     timeout: 10000,

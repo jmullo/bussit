@@ -4,5 +4,7 @@ import { updateStops } from 'map/stopLayer';
 export const addStopHandler = async () => {
     const stops = await getStops();
 
-    updateStops(stops);
+    if (stops) {
+        updateStops(stops);
+    }
 };
