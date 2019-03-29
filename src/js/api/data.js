@@ -18,8 +18,8 @@ export const getBuses = async (selectedLines) => {
     return get('/vehicle-activity', handleBuses, parameters);
 };
 
-const get = (endpoint, handler, parameters = {}) => {
-    return axios.get(`${PROXY_URL}${API_URL}${endpoint}`, parameters)
+const get = (endpoint, handler, params = {}) => {
+    return axios.get(`${PROXY_URL}${API_URL}${endpoint}`, { params })
                 .catch((error) => handleError(endpoint, error))
                 .then(handler)
                 .catch((error) => handleError(endpoint, error));
@@ -40,18 +40,28 @@ const handleLines = (response) => response.data.body.reduce((result, value) => {
     result[value.name] = pick(value, ['name', 'description']);
 
     return result;
-}, {})
+}, {});
 
-const handleBuses = (response) => response.data.body.reduce((result, { monitoredVehicleJourney }) => {
-    result[monitoredVehicleJourney.vehicleRef] = {
-        ...pick(monitoredVehicleJourney, ['delay', 'lineRef', 'journeyPatternRef', 'vehicleRef']),
-        bearing: Number(monitoredVehicleJourney.bearing),
-        speed: Number(monitoredVehicleJourney.speed),
-        latLng: [
-            Number(monitoredVehicleJourney.vehicleLocation.latitude),
-            Number(monitoredVehicleJourney.vehicleLocation.longitude),
-        ]
-    };
+const handleBuses = (response) => {
+    const timestamp = new Date().getTime();
 
-    return result;
-}, {})
+    return response.data.body.reduce((result, { monitoredVehicleJourney }) => {
+        result[monitoredVehicleJourney.vehicleRef] = {
+            ...pick(monitoredVehicleJourney, [
+                'delay',
+                'lineRef',
+                'journeyPatternRef',
+                'vehicleRef',
+                'bearing',
+                'speed'
+            ]),
+            timestamp: timestamp,
+            latLng: [
+                Number(monitoredVehicleJourney.vehicleLocation.latitude),
+                Number(monitoredVehicleJourney.vehicleLocation.longitude),
+            ]
+        };
+
+        return result;
+    }, {})
+};

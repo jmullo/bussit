@@ -52,6 +52,5 @@ const removeDeadBuses = () => {
 
 const isLineSelected = (lineRef) => {
     const { selectedLines } = dataContext;
-
-    return isEmpty(selectedLines) || includes(selectedLines, lineRef); 
+    return isEmpty(selectedLines) || includes(selectedLines, lineRef);
 };

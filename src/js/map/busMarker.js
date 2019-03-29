@@ -5,7 +5,10 @@ import { isEarly, isLate } from 'utils/time';
 
 export const updateMarker = (marker, bus) => {
     if (marker) {
-        marker.setLatLng(bus.latLng).setIcon(createIcon(bus));
+        if (hasMoved(marker.getLatLng(), bus.latLng)) {
+            marker.setLatLng(bus.latLng).setIcon(createIcon(bus));
+        }
+
         updateMarkerProperties(marker, bus);
     }
 };
@@ -24,7 +27,7 @@ export const createMarker = (bus, layerGroup) => {
 };
 
 const createIcon = ({ journeyPatternRef, bearing, speed, delay }) => {
-    const classNames = (speed > 0) ? ['moving','bus'] : ['bus'];
+    const classNames = (Number(speed) > 0) ? ['moving', 'bus'] : ['bus'];
 
     if (isEarly(delay)) {
         classNames.push('early');
@@ -37,7 +40,7 @@ const createIcon = ({ journeyPatternRef, bearing, speed, delay }) => {
     }
 
     const html = `<div class="shadow"></div>` +
-                 `<div class="arrow" style="transform: rotate(${bearing + 45}deg)"></div>` +
+                 `<div class="arrow" style="transform: rotate(${Number(bearing) + 45}deg)"></div>` +
                  `<div class="number">${journeyPatternRef}</div>`;
 
     return new DivIcon({
@@ -47,8 +50,13 @@ const createIcon = ({ journeyPatternRef, bearing, speed, delay }) => {
     });
 };
 
+const hasMoved = (markerLatLng, busLatLng) => {
+    return markerLatLng.lat !== busLatLng[0] ||
+           markerLatLng.lng !== busLatLng[1];
+};
+
 const updateMarkerProperties = (marker, bus) => {
     marker.journeyPatternRef = bus.journeyPatternRef;
     marker.vehicleRef = bus.vehicleRef;
-    marker.timestamp = new Date().getTime();
+    marker.timestamp = bus.timestamp
 };
