@@ -19,7 +19,6 @@ html, body {
 
 .map {
     height: 100%;
-    user-select: none;
 }
 
 .busPanel {
@@ -30,6 +29,7 @@ html, body {
     display: flex;
     flex-wrap: nowrap;
     justify-content: center;
+    user-select: none;
 }
 
 .busPanel .paper {

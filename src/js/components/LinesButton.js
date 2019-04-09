@@ -14,7 +14,7 @@ class LinesButton extends React.Component {
         selectorVisible: false
     };
 
-    handleClickAway = (event) => {
+    handleClickAway = () => {
         this.setState({ selectorVisible: false });
     };
 

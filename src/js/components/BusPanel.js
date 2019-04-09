@@ -14,7 +14,7 @@ class BusPanel extends React.Component {
 
         const { selectedBus, lines, buses } = this.context;
         const { vehicleRef, journeyPatternRef } = selectedBus;
-        const lineDescription =  lines[journeyPatternRef].description;
+        const lineDescription = lines[journeyPatternRef].description;
         const delay = buses[vehicleRef].delay;
 
         let details = 'Aikataulussa';

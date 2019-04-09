@@ -12,8 +12,8 @@ let busMarkers = {};
 
 export const addBusLayer = (mapRef) => layerGroup.addTo(mapRef);
 
-export const updateBuses = (buses) => {
-    forOwn(buses, (bus, vehicleRef) => {
+export const updateBuses = () => {
+    forOwn(dataContext.buses, (bus, vehicleRef) => {
         onNextAnimFrame(() => {
             if (isLineSelected(bus.lineRef)) {
                 if (busMarkers[vehicleRef]) {
@@ -25,29 +25,22 @@ export const updateBuses = (buses) => {
         }, `updateBus-${vehicleRef}`);
     });
 
-    onNextAnimFrame(removeDeadBuses, 'removeDeadBuses');
+    onNextAnimFrame(removeBuses, 'removeBuses');
 };
 
-export const removeUnselectedBuses = () => {
+export const removeBuses = () => {
+    const timestamp = new Date().getTime();
+
     onNextAnimFrame(() => {
         forOwn(busMarkers, (marker, vehicleRef) => {
-            if (!isLineSelected(marker.lineRef)) {
+            if (!dataContext.buses[vehicleRef] ||
+                (timestamp - marker.timestamp) / 1000 > BUS_DEAD_THRESHOLD) {
+
                 marker.remove();
                 delete busMarkers[vehicleRef];
             }
         });
     }, 'removeUnselectedBuses', true);
-};
-
-const removeDeadBuses = () => {
-    const timestamp = new Date().getTime();
-
-    forOwn(busMarkers, (marker, vehicleRef) => {
-        if ((timestamp - marker.timestamp) / 1000 > BUS_DEAD_THRESHOLD) {
-            marker.remove();
-            delete busMarkers[vehicleRef];
-        }
-    });
 };
 
 const isLineSelected = (lineRef) => {
