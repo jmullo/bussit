@@ -2,6 +2,7 @@ import { LatLng } from 'leaflet/dist/leaflet-src.esm';
 
 import { GEOLOCATION_OPTIONS, GEOLOCATION_MAX_ZOOM, PAN_OPTIONS } from 'constants/config';
 import { dataContext } from 'components/DataContext';
+import { updateMarker, removeMarker } from 'map/locationLayer';
 import { on } from 'utils/events';
 
 let map;
@@ -18,6 +19,7 @@ export const addLocationHandler = (mapRef) => {
             watchId = geolocation.watchPosition(handleSuccess, handleError, GEOLOCATION_OPTIONS);
         } else {
             geolocation.clearWatch(watchId);
+            removeMarker();
             positionNumber = 0;
         }
     });
@@ -39,6 +41,8 @@ const handleSuccess = ({ coords }) => {
         } else {
             map.panTo(latLng, PAN_OPTIONS);
         }
+
+        updateMarker(latLng);
     }
 };
 
