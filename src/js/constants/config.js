@@ -1,5 +1,7 @@
-export const PROXY_URL = 'https://yacdn.org/proxy/';
-export const API_URL = 'http://data.itsfactory.fi/journeys/api/1';
+// http://data.itsfactory.fi/journeys/api/1
+
+export const PROXY_URL = 'https://kiksu.net/bussit/proxy/';
+export const API_URL = 'journeys/api/1';
 
 export const EXCLUDED_BUS_FIELDS = [
     'recordedAtTime',

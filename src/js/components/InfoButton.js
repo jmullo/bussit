@@ -48,8 +48,8 @@ export default class InfoButton extends React.Component {
                                             className="link"
                                             color="secondary"
                                             variant="body1"
-                                            href="https://yacdn.org/">
-                                            Yet Another CDN
+                                            href="https://kiksu.net/">
+                                            kiksu.net
                                         </Link>
                                     </Typography>
                                 </Grid>

@@ -31,16 +31,14 @@ export const updateBuses = () => {
 export const removeBuses = () => {
     const timestamp = new Date().getTime();
 
-    onNextAnimFrame(() => {
-        forOwn(busMarkers, (marker, vehicleRef) => {
-            if (!dataContext.buses[vehicleRef] ||
-                (timestamp - marker.timestamp) / 1000 > BUS_DEAD_THRESHOLD) {
+    forOwn(busMarkers, (marker, vehicleRef) => {
+        if (!dataContext.buses[vehicleRef] ||
+            (timestamp - marker.timestamp) / 1000 > BUS_DEAD_THRESHOLD) {
 
-                marker.remove();
-                delete busMarkers[vehicleRef];
-            }
-        });
-    }, 'removeUnselectedBuses', true);
+            marker.remove();
+            delete busMarkers[vehicleRef];
+        }
+    });
 };
 
 const isLineSelected = (lineRef) => {
