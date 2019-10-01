@@ -1,7 +1,7 @@
-import { forOwn, includes, isEmpty } from 'lodash';
+import { map, includes, filter, isEmpty, cloneDeep } from 'lodash';
 import { LayerGroup } from 'leaflet/dist/leaflet-src.esm';
 
-import { BUS_DEAD_THRESHOLD } from 'constants/config';
+import { BUS_UPDATE_BATCH_SIZE } from 'constants/config';
 import { dataContext } from 'components/DataContext';
 import { createMarker, updateMarker } from 'map/busMarker';
 import { onNextAnimFrame } from 'map/animFrame';
@@ -9,36 +9,47 @@ import { onNextAnimFrame } from 'map/animFrame';
 const layerGroup = new LayerGroup();
 
 let busMarkers = {};
+let updateQueue = [];
 
 export const addBusLayer = (mapRef) => layerGroup.addTo(mapRef);
 
-export const updateBuses = () => {
-    forOwn(dataContext.buses, (bus, vehicleRef) => {
-        onNextAnimFrame(() => {
-            if (isLineSelected(bus.lineRef)) {
-                if (busMarkers[vehicleRef]) {
-                    updateMarker(busMarkers[vehicleRef], bus);
-                } else {
-                    busMarkers[vehicleRef] = createMarker(bus, layerGroup);
-                }
-            }
-        }, `updateBus-${vehicleRef}`);
-    });
+export const updateBuses = (buses) => {
+    const markersToRemove = filter(busMarkers, ({ vehicleRef }) => !buses[vehicleRef]);
 
-    onNextAnimFrame(removeBuses, 'removeBuses');
+    remove(markersToRemove);
+
+    updateQueue = map(buses, (bus) => cloneDeep(bus));
+
+    update();
 };
 
-export const removeBuses = () => {
-    const timestamp = new Date().getTime();
+const remove = (markers) => {
+    if (!isEmpty(markers)) {
+        onNextAnimFrame(() => {
+            markers.forEach((marker) => {
+                marker.remove();
+                delete busMarkers[marker.vehicleRef];
+            });
+        });
+    }
+};
 
-    forOwn(busMarkers, (marker, vehicleRef) => {
-        if (!dataContext.buses[vehicleRef] ||
-            (timestamp - marker.timestamp) / 1000 > BUS_DEAD_THRESHOLD) {
+const update = () => {
+    const buses = updateQueue.splice(0, BUS_UPDATE_BATCH_SIZE);
 
-            marker.remove();
-            delete busMarkers[vehicleRef];
-        }
+    onNextAnimFrame(() => {
+        buses.forEach((bus) => {
+            if (busMarkers[bus.vehicleRef]) {
+                updateMarker(busMarkers[bus.vehicleRef], bus);
+            } else {
+                busMarkers[bus.vehicleRef] = createMarker(bus, layerGroup);
+            }
+        });
     });
+
+    if (updateQueue.length > 0) {
+        update();
+    }
 };
 
 const isLineSelected = (lineRef) => {

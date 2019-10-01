@@ -1,3 +1,4 @@
+import { get } from 'lodash';
 import React from 'react';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
@@ -15,7 +16,7 @@ class BusPanel extends React.Component {
         const { selectedBus, lines, buses } = this.context;
         const { vehicleRef, journeyPatternRef } = selectedBus;
         const lineDescription = lines[journeyPatternRef].description;
-        const delay = buses[vehicleRef].delay;
+        const delay = get(buses[vehicleRef], 'delay', 0);
 
         let details = 'Aikataulussa';
         let detailsClassName = 'details';

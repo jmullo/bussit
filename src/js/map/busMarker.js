@@ -57,8 +57,7 @@ const hasMoved = (markerLatLng, busLatLng) => {
 };
 
 const updateMarkerProperties = (marker, bus) => {
-    marker.journeyPatternRef = bus.journeyPatternRef;
-    marker.journeyRef = bus.journeyRef;
     marker.vehicleRef = bus.vehicleRef;
-    marker.timestamp = bus.timestamp
+    marker.journeyRef = bus.journeyRef;
+    marker.journeyPatternRef = bus.journeyPatternRef;
 };

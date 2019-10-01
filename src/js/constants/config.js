@@ -71,6 +71,8 @@ export const STOP_MIN_ZOOM_LEVEL = 15;
 
 export const UPDATE_INTERVAL_MS = 500;
 
+export const BUS_UPDATE_BATCH_SIZE = 10;
+
 export const BUS_EARLY_THRESHOLD = -60;
 export const BUS_LATE_THRESHOLD = 120;
 export const BUS_DEAD_THRESHOLD = 120;

@@ -1,4 +1,3 @@
-import { remove } from 'lodash';
 import { Util } from 'leaflet/dist/leaflet-src.esm';
 
 import { zooming } from 'map/zoomHandler';
@@ -7,14 +6,8 @@ const tasks = [];
 
 let processing = false;
 
-export const onNextAnimFrame = (task, name, priority) => {
-    remove(tasks, (task) => task.name === name);
-
-    if (priority) {
-        tasks.unshift({ name, task });
-    } else {
-        tasks.push({ name, task });
-    }
+export const onNextAnimFrame = (task) => {
+    tasks.push({ task });
 
     if (!processing) {
         processing = true;

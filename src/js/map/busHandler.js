@@ -1,6 +1,6 @@
 import { isEmpty, pickBy, includes } from 'lodash';
 
-import { UPDATE_INTERVAL_MS } from 'constants/config';
+import { UPDATE_INTERVAL_MS, BUS_DEAD_THRESHOLD } from 'constants/config';
 import { getBuses } from 'api/data';
 import { dataContext } from 'components/DataContext';
 import { on } from 'utils/events';
@@ -18,31 +18,51 @@ const updateTimer = () => {
     setTimeout(async () => {
         if (pageVisible) {
             const buses = await getBuses(dataContext.selectedLines);
+            const filteredBuses = filterBuses(buses);
 
-            dataContext.buses = filterSelectedBuses(buses);
+            updateBuses(filteredBuses);
+            updateSelectedBus(filteredBuses);
 
-            updateBuses();
+            dataContext.buses = filteredBuses;
         }
 
         updateTimer();
     }, UPDATE_INTERVAL_MS);
 };
 
-const filterSelectedBuses = (buses) => {
+const filterBuses = (buses) => {
+    const timestamp = new Date().getTime();
     const { selectedLines } = dataContext;
-    const newBuses = { ...dataContext.buses, ...buses };
+    const linesSelected = !isEmpty(selectedLines);
+    let filteredBuses = { ...dataContext.buses, ...buses };
 
-    if (isEmpty(selectedLines)) {
-        return newBuses;
-    }
-
-    const selectedBuses = pickBy(newBuses, (bus) => {
-        return includes(selectedLines, bus.lineRef);
+    filteredBuses = pickBy(filteredBuses, (bus) => {
+        return (!linesSelected || includes(selectedLines, bus.lineRef)) &&
+               (timestamp - bus.timestamp) / 1000 < BUS_DEAD_THRESHOLD;
     });
 
-    if (dataContext.selectedBus && !selectedBuses[dataContext.selectedBus.vehicleRef]) {
-        dataContext.selectedBus = null
-    }
+    return filteredBuses;
+};
 
-    return selectedBuses;
+const updateSelectedBus = (buses) => {
+    if (dataContext.selectedBus) {
+        const { vehicleRef, journeyRef, journeyPatternRef } = dataContext.selectedBus;
+        const updatedBus = buses[vehicleRef];
+
+        if (updatedBus) {
+            if (journeyRef !== updatedBus.journeyRef ||
+                journeyPatternRef !== updatedBus.journeyPatternRef) {
+
+                dataContext.selectedBus = {
+                    vehicleRef: updatedBus.vehicleRef,
+                    journeyRef: updatedBus.journeyRef,
+                    journeyPatternRef: updatedBus.journeyPatternRef
+                };
+            }
+        } else {
+            dataContext.selectedBus = null;
+        }
+    } else {
+        dataContext.selectedBus = null;
+    }
 };
