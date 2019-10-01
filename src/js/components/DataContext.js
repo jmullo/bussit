@@ -9,6 +9,7 @@ const initialState = {
     lineRefs: [],
     selectedLines: [],
     selectedBus: null,
+    selectedRoute: null,
     maxBounds: null,
     locateEnabled: false
 };

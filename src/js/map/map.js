@@ -10,9 +10,11 @@ import { addLocationHandler } from 'map/locationHandler';
 import { addStopLayer } from 'map/stopLayer';
 import { addLocationLayer } from 'map/locationLayer';
 import { addBusLayer } from 'map/busLayer';
+import { addRouteLayer } from 'map/routeLayer';
 import { addLineHandler } from 'map/lineHandler';
 import { addStopHandler } from 'map/stopHandler';
 import { addBusHandler } from 'map/busHandler';
+import { addRouteHandler } from 'map/routeHandler';
 
 let map;
 
@@ -26,10 +28,12 @@ export const initMap = async (element) => {
     new TileLayer(TILE_LAYER_URL_TEMPLATE, TILE_LAYER_OPTIONS).addTo(map);
 
     addStopLayer(map);
+    addRouteLayer(map);
     addLocationLayer(map);
     addBusLayer(map);
 
     addLineHandler();
     addStopHandler();
+    addRouteHandler();
     addBusHandler(map);
 };

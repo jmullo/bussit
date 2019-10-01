@@ -20,6 +20,7 @@ export const createMarker = (bus, layerGroup) => {
 
     marker.on('click', () => emit('markerClick', {
         vehicleRef: marker.vehicleRef,
+        journeyRef: marker.journeyRef,
         journeyPatternRef: marker.journeyPatternRef
     }));
 
@@ -57,6 +58,7 @@ const hasMoved = (markerLatLng, busLatLng) => {
 
 const updateMarkerProperties = (marker, bus) => {
     marker.journeyPatternRef = bus.journeyPatternRef;
+    marker.journeyRef = bus.journeyRef;
     marker.vehicleRef = bus.vehicleRef;
     marker.timestamp = bus.timestamp
 };

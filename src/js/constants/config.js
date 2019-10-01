@@ -7,7 +7,6 @@ export const EXCLUDED_BUS_FIELDS = [
     'recordedAtTime',
     'validUntilTime',
     'monitoredVehicleJourney.directionRef',
-    'monitoredVehicleJourney.framedVehicleJourneyRef',
     'monitoredVehicleJourney.onwardCalls',
     'monitoredVehicleJourney.operatorRef',
     'monitoredVehicleJourney.originAimedDepartureTime'
@@ -60,6 +59,13 @@ export const STOP_OPTIONS = {
     color: 'rgba(255, 255, 255)',
     fillColor: 'rgba(0, 112, 186)'
 };
+
+export const ROUTE_OPTIONS = {
+    color: 'rgba(0, 112, 186)',
+    opacity: 0.8,
+    weight: 2,
+    smoothFactor: 0.5
+}
 
 export const STOP_MIN_ZOOM_LEVEL = 15;
 
