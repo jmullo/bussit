@@ -1,4 +1,4 @@
-const CleanPlugin = require('clean-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlPlugin = require('html-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
@@ -122,7 +122,7 @@ module.exports = (env, argv) => {
             ]
         },
         plugins: [
-            new CleanPlugin({
+            new CleanWebpackPlugin({
                 verbose: false
             }),
             new HtmlPlugin({
