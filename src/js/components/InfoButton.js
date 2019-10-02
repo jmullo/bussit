@@ -28,7 +28,7 @@ export default class InfoButton extends React.Component {
                     <Dialog className="dialog" open={this.state.dialogOpen} onClose={this.handleClose}>
 
                         <div className="infoDialog">
-                            <Grid container spacing={8} direction="column" alignItems="flex-start">
+                            <Grid container spacing={2} direction="column" alignItems="flex-start">
                                 <Grid item>
                                     <Typography variant="body1">
                                         Data:&nbsp;
