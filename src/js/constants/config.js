@@ -26,9 +26,13 @@ export const MAP_OPTIONS = {
     wheelDebounceTime: 20
 };
 
-export const TILE_LAYER_URL_TEMPLATE = 'https://{s}.traffic.maps.cit.api.here.com/maptile/2.1/' +
-                                       'traffictile/newest/normal.day.grey/{z}/{x}/{y}/256/png8' +
-                                       '?min_traffic_congestion=heavy' +
+export const TILE_SIZE = (window.devicePixelRatio || 1) > 1 ? 512 : 256;
+export const PPI = TILE_SIZE === 512 ? 250 : 100;
+
+export const TILE_LAYER_URL_TEMPLATE = 'https://{s}.traffic.maps.api.here.com/maptile/2.1/' +
+                                       `traffictile/newest/normal.day.grey/{z}/{x}/{y}/${TILE_SIZE}/png8` +
+                                       `?ppi=${PPI}` +
+                                       '&min_traffic_congestion=heavy' +
                                        '&app_id=PSK0FXmSMedrhq0pnjeh&app_code=NrsNjPndpr8j9Ab-WrN7hg';
 
 export const TILE_LAYER_OPTIONS = {
