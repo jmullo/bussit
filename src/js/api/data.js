@@ -12,7 +12,7 @@ export const getBuses = async (selectedLines) => {
     const parameters = {
         'directionRef': (requestNumber++ % 2) + 1,
         'exclude-fields': EXCLUDED_BUS_FIELDS,
-        ...!isEmpty(selectedLines) && { lineRef: selectedLines.join(',') }
+        ...!isEmpty(selectedLines) && { lineRef: selectedLines.join('*,') + '*' }
     };
 
     return get('/vehicle-activity', handleBuses, parameters);
@@ -20,7 +20,7 @@ export const getBuses = async (selectedLines) => {
 
 export const getRoute = async (journeyRef) => {
     const parameters = {
-        'exclude-fields': 'calls' // doesn't work
+        'exclude-fields': 'calls'
     };
 
     return get(`/journeys/${journeyRef}`, handleJourney, parameters);
@@ -39,7 +39,7 @@ const handleJourney = async (response) => {
     const routeRef = response.data.body[0].routeUrl.split('1/routes/')[1];
 
     const parameters = {
-        'exclude-fields': 'journeys,journeyPatterns' // doesn't work
+        'exclude-fields': 'journeys,journeyPatterns'
     };
 
     return get(`/routes/${routeRef}`, handleRoute, parameters);
@@ -66,9 +66,9 @@ const handleBuses = (response) => {
     return response.data.body.reduce((result, { monitoredVehicleJourney }) => {
         result[monitoredVehicleJourney.vehicleRef] = {
             journeyRef: monitoredVehicleJourney.framedVehicleJourneyRef.datedVehicleJourneyRef.split('1/journeys/')[1],
+            lineRef: monitoredVehicleJourney.lineRef.replace(/[A-Z]/g, ''),
             ...pick(monitoredVehicleJourney, [
                 'delay',
-                'lineRef',
                 'journeyPatternRef',
                 'vehicleRef',
                 'bearing',
