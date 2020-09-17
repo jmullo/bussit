@@ -1,4 +1,4 @@
-import { isEmpty, pickBy, includes } from 'lodash';
+import { get, isEmpty, pickBy, includes } from 'lodash';
 
 import { UPDATE_INTERVAL_MS, BUS_DEAD_THRESHOLD } from 'constants/config';
 import { getBuses } from 'api/data';
@@ -10,7 +10,11 @@ import { updateBuses } from 'map/busLayer';
 export const addBusHandler = (map) => {
     updateTimer();
 
-    on('markerClick', (bus) => dataContext.selectedBus = bus);
+    on('markerClick', (bus) => {
+        dataContext.selectedBus =
+            (bus.vehicleRef === get(dataContext, 'selectedBus.vehicleRef')) ? null : bus;
+    });
+
     map.on('click', () => dataContext.selectedBus = null);
 };
 
