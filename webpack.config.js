@@ -127,12 +127,14 @@ module.exports = (env, argv) => {
             new HtmlPlugin({
                 template: './src/html/index.html'
             }),
-            new CopyPlugin([
-                { from: './src/js/serviceWorker.js' },
-                { from: './src/html/manifest.json' },
-                { from: './src/img/bussit-192.png' },
-                { from: './src/img/bussit-512.png' }
-            ]),
+            new CopyPlugin({
+                patterns: [
+                    { from: './src/js/serviceWorker.js' },
+                    { from: './src/html/manifest.json' },
+                    { from: './src/img/bussit-192.png' },
+                    { from: './src/img/bussit-512.png' }
+                ]
+            }),
         ]
     };
 };
