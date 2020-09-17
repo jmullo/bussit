@@ -22,6 +22,8 @@ export const updateMarker = (latLng) => {
 };
 
 export const removeMarker = () => {
-    marker.remove();
-    marker = null;
+    if (marker) {
+        marker.remove();
+        marker = null;
+    }
 };

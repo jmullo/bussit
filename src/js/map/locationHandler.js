@@ -46,4 +46,8 @@ const handleSuccess = ({ coords }) => {
     }
 };
 
-const handleError = ({ message }) => console.log(message);
+const handleError = ({ message }) => {
+    dataContext.locateEnabled = false;
+
+    console.log(message);
+};
