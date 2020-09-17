@@ -33,7 +33,6 @@ export default class InfoButton extends React.Component {
                                     <Typography variant="body1">
                                         Data:&nbsp;
                                         <Link
-                                            className="link"
                                             color="secondary"
                                             variant="body1"
                                             href="http://wiki.itsfactory.fi/index.php/Journeys_API">
@@ -45,7 +44,6 @@ export default class InfoButton extends React.Component {
                                     <Typography variant="body1">
                                         Proxy:&nbsp;
                                         <Link
-                                            className="link"
                                             color="secondary"
                                             variant="body1"
                                             href="https://kiksu.net/">
@@ -55,9 +53,8 @@ export default class InfoButton extends React.Component {
                                 </Grid>
                                 <Grid item>
                                     <Typography variant="body1">
-                                        Map: © 1987 - 2019 HERE |&nbsp;
+                                        Map: © 1987 - 2020 HERE |&nbsp;
                                         <Link
-                                            className="link"
                                             color="secondary"
                                             variant="body1"
                                             href="https://legal.here.com/en/terms/serviceterms/us">
@@ -69,23 +66,26 @@ export default class InfoButton extends React.Component {
                                     &nbsp;
                                 </Grid>
                                 <Grid item>
-                                    Code:&nbsp;
-                                    <Link
-                                        color="secondary"
-                                        variant="body1"
-                                        href="https://github.com/jmullo/bussit">
-                                        https://github.com/jmullo/bussit
-                                    </Link>
+                                    <Typography variant="body1">
+                                        Code:&nbsp;
+                                        <Link
+                                            color="secondary"
+                                            variant="body1"
+                                            href="https://github.com/jmullo/bussit">
+                                            https://github.com/jmullo/bussit
+                                        </Link>
+                                    </Typography>
                                 </Grid>
                                 <Grid item>
-                                    Contact:&nbsp;
-                                    <Link
-                                        color="secondary"
-                                        variant="body1"
-                                        href="mailto:jussi.mullo@iki.fi">
-
-                                        jussi.mullo@iki.fi
-                                    </Link>
+                                    <Typography variant="body1">
+                                        Contact:&nbsp;
+                                        <Link
+                                            color="secondary"
+                                            variant="body1"
+                                            href="mailto:jussi.mullo@iki.fi">
+                                            jussi.mullo@iki.fi
+                                        </Link>
+                                    </Typography>
                                 </Grid>
                             </Grid>
                         </div>
