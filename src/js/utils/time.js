@@ -1,5 +1,5 @@
 import { startsWith } from 'lodash';
-import Duration from 'luxon/src/duration';
+import { Duration } from 'luxon';
 
 import { BUS_EARLY_THRESHOLD, BUS_LATE_THRESHOLD } from 'constants/config';
 

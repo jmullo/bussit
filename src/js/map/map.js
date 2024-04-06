@@ -15,6 +15,7 @@ import { addLineHandler } from 'map/lineHandler';
 import { addStopHandler } from 'map/stopHandler';
 import { addBusHandler } from 'map/busHandler';
 import { addRouteHandler } from 'map/routeHandler';
+import { addErrorHandler } from './errorHandler';
 
 let map;
 
@@ -36,4 +37,6 @@ export const initMap = async (element) => {
     addStopHandler();
     addRouteHandler();
     addBusHandler(map);
+
+    addErrorHandler();
 };

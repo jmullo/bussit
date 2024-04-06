@@ -1,5 +1,4 @@
-import 'core-js/stable';
-import 'regenerator-runtime/runtime';
+import 'core-js';
 
 import bussit from 'bussit';
 

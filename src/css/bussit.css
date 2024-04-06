@@ -23,6 +23,7 @@ html, body {
     margin: 0;
     padding: 0;
     font-family: "Roboto", sans-serif;
+    font-weight: 400;
     font-size: 14px;
     animation: fade 0.5s ease-in;
 }
@@ -68,7 +69,7 @@ html, body {
     flex-wrap: nowrap;
     align-items: center;
     margin-top: 2px;
-    padding: 2px 0;
+    padding: 3px 0 2px 0;
     color: rgba(0, 0, 0, 1);
 }
 
@@ -81,7 +82,7 @@ html, body {
 }
 
 .details.late p {
-    color: rgba(190, 0, 0, 1);
+    color: rgba(200, 0, 0, 1);
 }
 
 p.busLine {
@@ -174,7 +175,7 @@ p.busLine {
 }
 
 .late .arrow {
-    background-color: rgba(190, 0, 0, 0.9);
+    background-color: rgba(200, 0, 0, 0.9);
 }
 
 .shadow {
@@ -196,4 +197,31 @@ p.busLine {
 
 .long .number {
     font-size: 12px;
+}
+
+.errorPanel {
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    z-index: 900;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+    user-select: none;
+}
+
+.errorPanel .paper {
+    min-width: 346px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: center;
+    margin: 10px;
+    padding: 4px 2px 2px 2px;
+    background-color: rgba(200, 0, 0, 1);
+}
+
+.errorPanel .paper p {
+    color: rgba(255, 255, 255, 1);
+    font-weight: 500;
 }

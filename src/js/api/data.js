@@ -2,6 +2,7 @@ import { pick, isEmpty, last } from 'lodash';
 import axios from 'axios';
 
 import { PROXY_URL, API_URL, EXCLUDED_BUS_FIELDS } from 'constants/config';
+import { emit } from 'utils/events';
 
 let requestNumber = 0;
 
@@ -33,9 +34,17 @@ const get = (endpoint, handler, params = {}) => {
                 .catch((error) => handleError(endpoint, error));
 };
 
-const handleError = (endpoint, error) => console.log(`Error fetching ${endpoint}`, error);
+const handleError = (endpoint, error) => {
+    console.log(`Error fetching ${endpoint}\n\n`, error);
+    emit('showError', true);
+};
 
 const handleJourney = async (response) => {
+   if (!response.data.body) {
+      emit('showError', true);
+      return []
+   }
+
     const routeRef = response.data.body[0].routeUrl.split('1/routes/')[1];
 
     const parameters = {

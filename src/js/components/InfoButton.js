@@ -31,6 +31,28 @@ export default class InfoButton extends React.Component {
                             <Grid container spacing={2} direction="column" alignItems="flex-start">
                                 <Grid item>
                                     <Typography variant="body1">
+                                        Contact:&nbsp;
+                                        <Link
+                                            color="secondary"
+                                            variant="body1"
+                                            href="mailto:jussi.mullo@iki.fi">
+                                            jussi.mullo@iki.fi
+                                        </Link>
+                                    </Typography>
+                                </Grid>
+                                <Grid item>
+                                    <Typography variant="body1">
+                                        Code:&nbsp;
+                                        <Link
+                                            color="secondary"
+                                            variant="body1"
+                                            href="https://github.com/jmullo/bussit">
+                                            https://github.com/jmullo/bussit
+                                        </Link>
+                                    </Typography>
+                                </Grid>
+                                <Grid item>
+                                    <Typography variant="body1">
                                         Data:&nbsp;
                                         <Link
                                             color="secondary"
@@ -53,37 +75,12 @@ export default class InfoButton extends React.Component {
                                 </Grid>
                                 <Grid item>
                                     <Typography variant="body1">
-                                        Map: © 1987 - 2020 HERE |&nbsp;
+                                        Map: © 1987 - 2024 HERE |&nbsp;
                                         <Link
                                             color="secondary"
                                             variant="body1"
                                             href="https://legal.here.com/en/terms/serviceterms/us">
                                             Terms of use
-                                        </Link>
-                                    </Typography>
-                                </Grid>
-                                <Grid item>
-                                    &nbsp;
-                                </Grid>
-                                <Grid item>
-                                    <Typography variant="body1">
-                                        Code:&nbsp;
-                                        <Link
-                                            color="secondary"
-                                            variant="body1"
-                                            href="https://github.com/jmullo/bussit">
-                                            https://github.com/jmullo/bussit
-                                        </Link>
-                                    </Typography>
-                                </Grid>
-                                <Grid item>
-                                    <Typography variant="body1">
-                                        Contact:&nbsp;
-                                        <Link
-                                            color="secondary"
-                                            variant="body1"
-                                            href="mailto:jussi.mullo@iki.fi">
-                                            jussi.mullo@iki.fi
                                         </Link>
                                     </Typography>
                                 </Grid>

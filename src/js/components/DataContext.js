@@ -11,7 +11,8 @@ const initialState = {
     selectedBus: null,
     selectedRoute: null,
     maxBounds: null,
-    locateEnabled: false
+    locateEnabled: false,
+    dataError: false
 };
 
 export const DataContext = React.createContext();

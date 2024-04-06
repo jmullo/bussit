@@ -3,6 +3,8 @@
 export const PROXY_URL = 'https://kiksu.net/bussit/proxy/';
 export const API_URL = 'journeys/api/1';
 
+export const UPDATE_INTERVAL_MS = 1500;
+
 export const EXCLUDED_BUS_FIELDS = [
     'recordedAtTime',
     'validUntilTime',
@@ -29,11 +31,16 @@ export const MAP_OPTIONS = {
 export const TILE_SIZE = (window.devicePixelRatio || 1) > 1 ? 512 : 256;
 export const PPI = TILE_SIZE === 512 ? 250 : 100;
 
-export const TILE_LAYER_URL_TEMPLATE = 'https://{s}.traffic.maps.api.here.com/maptile/2.1/' +
-                                       `traffictile/newest/normal.day.grey/{z}/{x}/{y}/${TILE_SIZE}/png8` +
+export const TILE_LAYER_APP_ID = 'PSK0FXmSMedrhq0pnjeh'
+export const TILE_LAYER_APP_CODE = 'NrsNjPndpr8j9Ab-WrN7hg'
+
+export const TILE_LAYER_URL_TEMPLATE = `https://{s}.traffic.maps.api.here.com/maptile/2.1/` +
+                                       `traffictile/newest/normal.day.grey/{z}/{x}/{y}/${TILE_SIZE}/png` +
                                        `?ppi=${PPI}` +
-                                       '&min_traffic_congestion=heavy' +
-                                       '&app_id=PSK0FXmSMedrhq0pnjeh&app_code=NrsNjPndpr8j9Ab-WrN7hg';
+                                       `&style=default` +
+                                       `&min_traffic_congestion=heavy` +
+                                       `&app_id=${TILE_LAYER_APP_ID}` +
+                                       `&app_code=${TILE_LAYER_APP_CODE}`;
 
 export const TILE_LAYER_OPTIONS = {
     subdomains: '1234',
@@ -56,7 +63,7 @@ export const PAN_OPTIONS = {
 };
 
 export const STOP_OPTIONS = {
-    radius: 4,
+    radius: 5,
     weight: 1,
     opacity: 0.9,
     fillOpacity: 0.7,
@@ -72,8 +79,6 @@ export const ROUTE_OPTIONS = {
 }
 
 export const STOP_MIN_ZOOM_LEVEL = 15;
-
-export const UPDATE_INTERVAL_MS = 500;
 
 export const BUS_UPDATE_BATCH_SIZE = 10;
 

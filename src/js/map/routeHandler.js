@@ -10,12 +10,14 @@ export const addRouteHandler = () => {
         if (bus && get(dataContext, 'selectedRoute.journeyRef') !== bus.journeyRef) {
             const points = await getRoute(bus.journeyRef);
 
-            updateRoute(points);
+            if (points) {
+                updateRoute(points);
 
-            dataContext.selectedRoute = {
-                points: points,
-                journeyRef: bus.journeyRef
-            };
+                dataContext.selectedRoute = {
+                    points: points,
+                    journeyRef: bus.journeyRef
+                };
+            }
         } else {
             removeRoute();
 

@@ -1,4 +1,4 @@
-import { get } from 'lodash';
+import { isEmpty, get } from 'lodash';
 import React from 'react';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
@@ -9,7 +9,7 @@ import { isEarly, isLate, asMinutes } from 'utils/time';
 class BusPanel extends React.Component {
 
     render() {
-        if (!this.context.selectedBus) {
+        if (!this.context.selectedBus || isEmpty(this.context.lines)) {
             return null;
         }
 
