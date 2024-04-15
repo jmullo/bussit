@@ -1,7 +1,7 @@
 import { Map, TileLayer } from 'leaflet/dist/leaflet-src.esm';
 
 import {
-    MAP_OPTIONS, TILE_LAYER_URL_TEMPLATE, TILE_LAYER_OPTIONS
+    MAP_OPTIONS, TILE_LAYER_URL, TILE_LAYER_OPTIONS
 } from 'constants/config';
 
 import { addViewHandler } from 'map/viewHandler';
@@ -26,7 +26,7 @@ export const initMap = async (element) => {
     addZoomHandler(map);
     addLocationHandler(map);
 
-    new TileLayer(TILE_LAYER_URL_TEMPLATE, TILE_LAYER_OPTIONS).addTo(map);
+    new TileLayer(TILE_LAYER_URL, TILE_LAYER_OPTIONS).addTo(map);
 
     addStopLayer(map);
     addRouteLayer(map);

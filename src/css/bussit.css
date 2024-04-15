@@ -225,3 +225,7 @@ p.busLine {
     color: rgba(255, 255, 255, 1);
     font-weight: 500;
 }
+
+.leaflet-container img.leaflet-tile {
+	mix-blend-mode: normal !important;
+}

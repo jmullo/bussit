@@ -75,12 +75,19 @@ export default class InfoButton extends React.Component {
                                 </Grid>
                                 <Grid item>
                                     <Typography variant="body1">
-                                        Map: © 1987 - 2024 HERE |&nbsp;
+                                        Map:&nbsp;
                                         <Link
                                             color="secondary"
                                             variant="body1"
-                                            href="https://legal.here.com/en/terms/serviceterms/us">
-                                            Terms of use
+                                            href="https://www.mapbox.com/about/maps/">
+                                            © Mapbox
+                                        </Link>
+                                        &nbsp;
+                                        <Link
+                                            color="secondary"
+                                            variant="body1"
+                                            href="https://www.openstreetmap.org/about/">
+                                            © OpenStreetMap
                                         </Link>
                                     </Typography>
                                 </Grid>

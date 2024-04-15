@@ -28,22 +28,15 @@ export const MAP_OPTIONS = {
     wheelDebounceTime: 20
 };
 
-export const TILE_SIZE = (window.devicePixelRatio || 1) > 1 ? 512 : 256;
-export const PPI = TILE_SIZE === 512 ? 250 : 100;
+export const TILE_LAYER_ACCESS_TOKEN = 'xxx'
 
-export const TILE_LAYER_APP_ID = 'PSK0FXmSMedrhq0pnjeh'
-export const TILE_LAYER_APP_CODE = 'NrsNjPndpr8j9Ab-WrN7hg'
-
-export const TILE_LAYER_URL_TEMPLATE = `https://{s}.traffic.maps.api.here.com/maptile/2.1/` +
-                                       `traffictile/newest/normal.day.grey/{z}/{x}/{y}/${TILE_SIZE}/png` +
-                                       `?ppi=${PPI}` +
-                                       `&style=default` +
-                                       `&min_traffic_congestion=heavy` +
-                                       `&app_id=${TILE_LAYER_APP_ID}` +
-                                       `&app_code=${TILE_LAYER_APP_CODE}`;
+export const TILE_LAYER_URL = `https://api.mapbox.com/styles/v1/jmullo/clv1egb50009b01pk4b4xa78r/tiles/512/{z}/{x}/{y}@2x` +
+                              `?access_token=${TILE_LAYER_ACCESS_TOKEN}`;
 
 export const TILE_LAYER_OPTIONS = {
     subdomains: '1234',
+    tileSize: 512,
+    zoomOffset: -1,
     minZoom: MAP_OPTIONS.minZoom,
     maxZoom: MAP_OPTIONS.maxZoom,
     keepBuffer: 4
